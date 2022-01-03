@@ -2,11 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
+import DashboardController from '../src/dashboard/dashboard.controller.mjs';
 class Middleware{
 
     constructor(app) {
         this.initMiddleware(app);
         this.initDb(app);
+        this.initControllers(app);
     }
 
     initMiddleware(app){
@@ -24,6 +26,13 @@ class Middleware{
             },
             ()=> console.log('Successfully connected to MongoDB')
         );
+    }
+
+    initControllers(app){
+        const controllers = [
+            new DashboardController(app)
+        ]
+
     }
 
 
