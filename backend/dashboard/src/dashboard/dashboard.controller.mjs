@@ -1,32 +1,37 @@
 // IMPORTS
 import express from 'express';
+import BaseController from '../base/base.controller.mjs';
+
+// SERVICE
 import DashboardService from "./dashboard.service.mjs";
-import BaseController from '../base/BaseController.mjs';
+
 // UTILS
 import * as routes from '../utils/routes/index.mjs';
-// SERVICE
+import ErrorLanguage from "../utils/error/ErrorLanguage.mjs";
 
 class DashboardController extends BaseController{
-    route =`${routes.baseEndpoint}/${routes.dashboard}`;
-    cmsRoute =`${routes.baseEndpoint}/cms/${routes.dashboard}`;
-    service = new DashboardService();
+
     constructor(app) {
         super(app)
+        this.route =`${routes.baseEndpoint}/${routes.dashboard}`;
+        this.cmsRoute =`${routes.baseEndpoint}/cms/${routes.dashboard}`;
+        this.service = new DashboardService();
         this.intializeRoutes(app);
     }
 
 
-    getAllDashboardData = (req,res,send) =>{
+    getAllDashboardData = async(req,res,send) =>{
         try{
-            this.lang(req);
-            res.send(this.service.getAllDashboardData());
+            // return await res.send(this.service.getAllDashboardData());
+            return await res.send(this.service.throwError());
         }catch(e){
-            res.status(400).send(e.message);
+            return res.status(400).send(new ErrorLanguage(e,this.lang(req)).returnLangError());
         }
+
     }
 
-    intializeRoutes = (app) =>{
-        app.get(`${this.route}/`,this.getAllDashboardData)
+    intializeRoutes = async (app) =>{
+       await app.get(`${this.route}/`,this.getAllDashboardData)
     }
 }
 export default DashboardController
