@@ -9,7 +9,6 @@ class ErrorLanguage extends BaseError{
 
     returnLangError = () =>{
         const obj = Object.values(errorObject).find(obj => `Error: ${obj.name}` === this.message);
-        console.log(obj);
         if(obj){
             if(this.lang){
                 return obj[this.lang];

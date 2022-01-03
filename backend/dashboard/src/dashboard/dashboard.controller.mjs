@@ -8,6 +8,8 @@ import DashboardService from "./dashboard.service.mjs";
 // UTILS
 import * as routes from '../utils/routes/index.mjs';
 import ErrorLanguage from "../utils/error/ErrorLanguage.mjs";
+import Publisher from "../messageQueue/publisher.mjs";
+import Subscriber from "../messageQueue/subscriber.mjs";
 
 class DashboardController extends BaseController{
 
@@ -22,8 +24,7 @@ class DashboardController extends BaseController{
 
     getAllDashboardData = async(req,res,send) =>{
         try{
-            // return await res.send(this.service.getAllDashboardData());
-            return await res.send(this.service.throwError());
+            return await res.send(this.service.getAllDashboardData());
         }catch(e){
             return res.status(400).send(new ErrorLanguage(e,this.lang(req)).returnLangError());
         }
