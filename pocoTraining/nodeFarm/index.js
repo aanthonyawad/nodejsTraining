@@ -13,8 +13,22 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // TEMPLATE DATA
 const  tempOverview= fs.readFileSync(`${__dirname}/templates/template-overview.html`,'utf-8');
-const  tempCard= fs.readFileSync(`${__dirname}/templates/template-overview.html`,'utf-8');
-const  tempProduct= fs.readFileSync(`${__dirname}/templates/template-overview.html`,'utf-8');
+const  tempCard= fs.readFileSync(`${__dirname}/templates/template-card.html`,'utf-8');
+const  tempProduct= fs.readFileSync(`${__dirname}/templates/template-product.html`,'utf-8');
+
+const replaceTemplate = (temp,el) =>{
+    let out = temp.replace(/{%ID%}/g,el.id);
+    out = out.replace(/{%IMAGE%}/g,el.image);
+    out = out.replace(/{%PRODUCTNAME%}/g,el.productName);
+    out = out.replace(/{%IMAGE%}/g,el.nutrients);
+    out = out.replace(/{%IMAGE%}/g,el.quantity);
+    out = out.replace(/{%PRICE%}/g,el.price);
+    if(!el.organic)
+        out = out.replace(/{%NOTORGANIC%}/g,'not-organic');
+    out = out.replace(/{%IMAGE%}/g,el.description);
+    return out;
+}
+
 
 //API DATA
 const  data= fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8');
@@ -24,10 +38,22 @@ const server = http.createServer((req,res)=>{
     //OVERVIEW PAGE
     if(pathName === '/' || pathName === '/overview'){
 
-        return res.end('Hello from Overview');
+        res.writeHead(200,{'Content-Type':'text/html'});
+        const newDataObj = dataObj.map(el =>replaceTemplate(tempCard,el))
+        let out = tempOverview.replace(/{%PRODUCTCARDS%}/g,newDataObj)
+        return res.end(out);
     //PRODUCT PAGE
     }else if (pathName === '/product') {
-        return res.end('Hello from Product');
+        res.writeHead(200,{'Content-Type':'text/html'});
+        tempProduct.replaceAll('{%ID%}',obj.id);
+        tempProduct.replaceAll('{%IMAGE%}',obj.image);
+        tempProduct.replaceAll('{%PRODUCTNAME%}',obj.productName);
+        tempProduct.replaceAll('{%QUANTITY%}',obj.nutrients);
+        tempProduct.replaceAll('{%QUANTITY%}',obj.quantity);
+        tempProduct.replaceAll('{%PRICE%}',obj.price);
+        tempProduct.replaceAll('{%NOTORGANIC%}',obj.organic);
+        tempProduct.replaceAll('{%DESCRIPTION',obj.description);
+        return res.end(tempProduct);
     //API
     }else if(pathName === '/api'){
         res.writeHead(200,{'Content-Type':'application/json'});
