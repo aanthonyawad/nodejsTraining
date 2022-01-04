@@ -34,7 +34,10 @@ const replaceTemplate = (temp,el) =>{
 const  data= fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8');
 const dataObj = JSON.parse(data);
 const server = http.createServer((req,res)=>{
-    const pathName = req.url;
+
+    const parsedUrl = url.parse(req.url,true);
+    const pathName = parsedUrl.pathname;
+    console.log(pathName);
     //OVERVIEW PAGE
     if(pathName === '/' || pathName === '/overview'){
 
@@ -44,8 +47,10 @@ const server = http.createServer((req,res)=>{
         return res.end(out);
     //PRODUCT PAGE
     }else if (pathName === '/product') {
+        const id = parsedUrl.query.id;
 
-        return res.end('tempProduct');
+        let out = replaceTemplate(tempProduct,dataObj[id]);
+        return res.end(out);
     //API
     }else if(pathName === '/api'){
         res.writeHead(200,{'Content-Type':'application/json'});
