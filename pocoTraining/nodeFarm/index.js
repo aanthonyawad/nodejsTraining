@@ -39,21 +39,13 @@ const server = http.createServer((req,res)=>{
     if(pathName === '/' || pathName === '/overview'){
 
         res.writeHead(200,{'Content-Type':'text/html'});
-        const newDataObj = dataObj.map(el =>replaceTemplate(tempCard,el))
+        const newDataObj = dataObj.map(el =>replaceTemplate(tempCard,el)).join('');
         let out = tempOverview.replace(/{%PRODUCTCARDS%}/g,newDataObj)
         return res.end(out);
     //PRODUCT PAGE
     }else if (pathName === '/product') {
-        res.writeHead(200,{'Content-Type':'text/html'});
-        tempProduct.replaceAll('{%ID%}',obj.id);
-        tempProduct.replaceAll('{%IMAGE%}',obj.image);
-        tempProduct.replaceAll('{%PRODUCTNAME%}',obj.productName);
-        tempProduct.replaceAll('{%QUANTITY%}',obj.nutrients);
-        tempProduct.replaceAll('{%QUANTITY%}',obj.quantity);
-        tempProduct.replaceAll('{%PRICE%}',obj.price);
-        tempProduct.replaceAll('{%NOTORGANIC%}',obj.organic);
-        tempProduct.replaceAll('{%DESCRIPTION',obj.description);
-        return res.end(tempProduct);
+
+        return res.end('tempProduct');
     //API
     }else if(pathName === '/api'){
         res.writeHead(200,{'Content-Type':'application/json'});
