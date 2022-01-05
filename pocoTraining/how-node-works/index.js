@@ -1,31 +1,31 @@
-const EventEmitter = require("events");
-const http = require("http");
-const myEmitter = new EventEmitter();
-myEmitter.on("newSale", () => {
-  console.log("Sale!!!!!");
-});
-
-myEmitter.on("newSale", () => {
-  console.log("Hello Sale!!!!!");
-});
-
-myEmitter.on("newSale", (stock) => {
-  console.log(`items left in stock ${stock}`);
-});
-
-myEmitter.emit("newSale", 9);
-
-const server = http.createServer();
-
+const fs = require("fs");
+const server = require("http").createServer();
 server.on("request", (req, res) => {
-  console.log("Hello From Server");
-});
-server.on("request", (req, res) => {
-  console.log("Hello From Server 2");
-});
-server.on("close", () => {
-  console.log("Close Server");
+  //SOLUTION 1 BAD
+  // fs.readFile("test-file.txt", (err, data) => {
+  //   if (err) console.log(err);
+  //   res.end(data);
+  // });
+  // SOLUTION 2 STREAMS
+  // const readable = fs.createReadStream("test-file.txt");
+  // readable.on("data", (chunk) => {
+  //   res.write(chunk);
+  // });
+  //
+  // readable.on("end", () => {
+  //   res.end();
+  // });
+  //
+  // readable.on("error", () => {
+  //   res.statusCode = 500;
+  //   res.end();
+  // });
+
+  //SOLUTION 3 PIPE
+  const readable = fs.createReadStream("test-file.txt");
+  readable.pipe(res);
 });
 
-server.listen(8000, "127.0.0.1", () => {});
-console.log("Waiting for requests...");
+server.listen(8000, "127.0.0.0.1", () => {
+  console.log("listening....");
+});
