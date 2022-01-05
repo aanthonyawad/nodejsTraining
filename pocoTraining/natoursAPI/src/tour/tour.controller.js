@@ -30,11 +30,18 @@ class TourController {
     return res.send(req.lang);
   };
 
+  neverDelete = (req, res, next, val) => {
+    return res.json({ lang: req.lang, notDelete: false });
+    next();
+  };
+
   initializesRoutes = async (app) => {
     app.get(`${this.route}/`, this.getAllTours);
     app.post(`${this.route}/`, this.postTour);
+    app.use(this.neverDelete);
     app.get(`${this.route}/:id`, this.getTour);
     app.patch(`${this.route}/:id`, this.patchTour);
+    app.param('id', this.neverDelete);
     app.delete(`${this.route}/:id`, this.deleteTour);
   };
 }
