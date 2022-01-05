@@ -1,7 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
+
 import mongoose from 'mongoose';
+import TourController from './tour/tour.controller.js';
+import UserController from './user/user.controller.js';
 class Middleware {
   constructor(app) {
     this.initMiddleware(app);
@@ -10,6 +14,7 @@ class Middleware {
   }
 
   initMiddleware(app) {
+    app.use(morgan('dev'));
     app.use(express.json());
     app.use(cors());
     app.use(cookieParser());
@@ -38,7 +43,7 @@ class Middleware {
   }
 
   initControllers(app) {
-    // const controllers = [new DashboardController(app)];
+    const controllers = [new TourController(app), new UserController(app)];
   }
 }
 export default Middleware;
