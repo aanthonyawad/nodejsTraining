@@ -44,10 +44,10 @@ class Middleware {
       process.env.DATABASEURL,
       {
         useNewUrlParser: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,
       },
-      () => console.log('Successfully connected to MongoDB')
+      (error) => {
+        if (error) console.log(error);
+      }
     );
   }
 

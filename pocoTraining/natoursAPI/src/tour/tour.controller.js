@@ -26,29 +26,19 @@ class TourController {
     return res.send(req.lang);
   };
 
-  postTour = async (req, res, next) => {
-    return res.send(req.lang);
-  };
-
-  neverDelete = (req, res, next, val) => {
-    return res.json({ lang: req.lang, notDelete: false });
-    next();
-  };
-  checkBody = (req, res, next) => {
-    console.log(req.body);
-    if (req.body.name && req.body.price) {
-      return res.json({ error: true, message: 'An Error Has Occured' });
+  createNewTour = async (req, res, next) => {
+    try {
+      const tour = await this.service.createNewTour(req.body);
+      return res.send(tour);
+    } catch (e) {
+      return res.send(e);
     }
-    return next();
   };
-
   initializesRoutes = async (app) => {
     app.get(`${this.route}/`, this.getAllTours);
-    app.post(`${this.route}/`, this.checkBody, this.postTour);
-    app.use(this.neverDelete);
+    app.post(`${this.route}/`, this.createNewTour);
     app.get(`${this.route}/:id`, this.getTour);
     app.patch(`${this.route}/:id`, this.patchTour);
-    app.param('id', this.neverDelete);
     app.delete(`${this.route}/:id`, this.deleteTour);
   };
 }
