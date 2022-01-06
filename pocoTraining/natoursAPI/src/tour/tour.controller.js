@@ -13,7 +13,7 @@ class TourController {
   getAllTours = async (req, res, next) => {
     try {
       //TODO create result obj
-      const tours = await this.service.getAllTours();
+      const tours = await this.service.getAllTours(req.query);
       return res.send(tours);
     } catch (e) {
       console.log(e);
@@ -21,16 +21,28 @@ class TourController {
     }
   };
 
-  getTour = async (req, res, next) => {
-    return res.send(req.lang);
+  findOneTour = async (req, res, next) => {
+    try {
+      //TODO create result obj
+      const tour = await this.service.findOneTour(req.params.id);
+      return res.send(tour);
+    } catch (e) {
+      return res.send(e);
+    }
   };
 
   deleteTour = async (req, res, next) => {
     return res.send(req.lang);
   };
 
-  patchTour = async (req, res, next) => {
-    return res.send(req.lang);
+  updateTour = async (req, res, next) => {
+    try {
+      //TODO create result obj
+      const tour = await this.service.updateTour(req.body, req.param.id);
+      return res.send(tour);
+    } catch (e) {
+      return res.send(e);
+    }
   };
 
   createNewTour = async (req, res, next) => {
@@ -45,8 +57,8 @@ class TourController {
   initializesRoutes = async (app) => {
     app.get(`${this.route}/`, this.getAllTours);
     app.post(`${this.route}/`, this.createNewTour);
-    app.get(`${this.route}/:id`, this.getTour);
-    app.patch(`${this.route}/:id`, this.patchTour);
+    app.get(`${this.route}/:id`, this.findOneTour);
+    app.put(`${this.route}/:id`, this.updateTour);
     app.delete(`${this.route}/:id`, this.deleteTour);
   };
 }
