@@ -4,10 +4,13 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const tourSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  }, // String is shorthand for {type: String}
+  name: String,
   price: Number,
+  rating: Number,
+  active: Boolean,
+  deleted: Boolean,
+  createdDate: Date,
+  updatedDate: Date,
+  __v: Number,
 });
 export default mongoose.model('Tour', tourSchema);

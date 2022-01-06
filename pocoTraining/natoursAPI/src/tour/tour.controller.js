@@ -11,7 +11,14 @@ class TourController {
   }
 
   getAllTours = async (req, res, next) => {
-    return res.send(req.lang);
+    try {
+      //TODO create result obj
+      const tours = await this.service.getAllTours();
+      return res.send(tours);
+    } catch (e) {
+      console.log(e);
+      return res.send(e);
+    }
   };
 
   getTour = async (req, res, next) => {
@@ -28,6 +35,7 @@ class TourController {
 
   createNewTour = async (req, res, next) => {
     try {
+      //TODO create result obj
       const tour = await this.service.createNewTour(req.body);
       return res.send(tour);
     } catch (e) {
