@@ -41,7 +41,7 @@ class Middleware {
 
   initDb() {
     mongoose.connect(
-      'mongodb://localhost:27017/natours',
+      process.env.DATABASEURL,
       {
         useNewUrlParser: true,
         useFindAndModify: false,
