@@ -1,7 +1,6 @@
 //Imports
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import slugify from 'slugify';
 
 const { Schema } = mongoose;
 
@@ -57,7 +56,7 @@ const userSchema = new Schema({
 });
 
 userSchema.pre('save', async function (next) {
-  this.secret.password = await bcrypt(this.secret.password, 12);
+  this.secret.password = await bcrypt.hash(this.secret.password, 12);
   this.secret.passwordConfirm = undefined;
   next();
 });
