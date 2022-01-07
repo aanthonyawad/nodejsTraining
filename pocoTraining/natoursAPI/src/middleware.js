@@ -19,6 +19,12 @@ class Middleware {
     this.initMiddleware(app);
     this.initDb(app);
     this.initControllers(app);
+    app.all('*', (req, res) => {
+      return res.status(404).json({
+        status: 404,
+        message: '404',
+      });
+    });
   }
 
   initMiddleware(app) {
