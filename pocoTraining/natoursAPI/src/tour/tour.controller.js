@@ -1,6 +1,7 @@
 // IMPORTS
 import express from 'express';
 import TourService from './tour.service.js';
+import AppError from '../utils/error/appError.js';
 
 class TourController {
   constructor(app) {
@@ -13,7 +14,7 @@ class TourController {
   getAllTours = async (req, res, next) => {
     try {
       //TODO create result obj
-      const tours = await this.service.getAllTours(req.query);
+      const tours = await this.service.getAllToursPaginated(req.query);
       return res.send(tours);
     } catch (e) {
       console.log(e);
@@ -27,7 +28,8 @@ class TourController {
       const tour = await this.service.findOneTour(req.params.id);
       return res.send(tour);
     } catch (e) {
-      return res.send(e);
+      const appError = new AppError(`notFound`, 400, req.lang);
+      return next(appError);
     }
   };
 
@@ -54,18 +56,18 @@ class TourController {
       return res.send(e);
     }
   };
-
   getTourStats = async (req, res, next) => {
     try {
       //TODO create result obj
-      const tourStats = await this.service.getTourStats();
-      return res.send(tourStats);
+      const tour = await this.service.getTourStats();
+      return res.send(tour);
     } catch (e) {
       return res.send(e);
     }
   };
+
   initializesRoutes = async (app) => {
-    app.get(`${this.route}/stats/`, this.getTourStats);
+    app.get(`${this.route}/stats`, this.getTourStats);
     app.get(`${this.route}/`, this.getAllTours);
     app.post(`${this.route}/`, this.createNewTour);
     app.get(`${this.route}/:id`, this.findOneTour);

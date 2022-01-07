@@ -14,17 +14,17 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+//UTILS
+
+import AppError from './utils/error/appError.js';
+
 class Middleware {
   constructor(app) {
     this.initMiddleware(app);
     this.initDb(app);
     this.initControllers(app);
-    app.all('*', (req, res) => {
-      return res.status(404).json({
-        status: 404,
-        message: '404',
-      });
-    });
+    this.initUnkownRoute(app);
+    this.initErrorMiddleware(app);
   }
 
   initMiddleware(app) {
@@ -37,8 +37,8 @@ class Middleware {
     //DATA NEEDED BEFORE EVERY REQUEST
     app.use((req, res, next) => {
       req.lang =
-        req.headers['accept-headers'] != null
-          ? req.headers['accept-headers']
+        req.headers['accept-language'] != null
+          ? req.headers['accept-language']
           : 'en';
       req.requestStartMillisec = Date.now();
       next();
@@ -59,6 +59,21 @@ class Middleware {
 
   initControllers(app) {
     const controllers = [new TourController(app), new UserController(app)];
+  }
+
+  initUnkownRoute(app) {
+    app.all('*', (req, res, next) => {
+      next(new AppError(`fail`, 404, req.lang));
+    });
+  }
+
+  initErrorMiddleware(app) {
+    app.use((err, req, res, next) => {
+      const statusCode = err.statusCode || 500;
+      return res.status(statusCode).json({
+        data: err.data,
+      });
+    });
   }
 }
 export default Middleware;
