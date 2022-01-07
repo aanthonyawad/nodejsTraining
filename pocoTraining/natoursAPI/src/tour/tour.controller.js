@@ -1,6 +1,8 @@
 // IMPORTS
 import express from 'express';
 import TourService from './tour.service.js';
+
+//UTIL
 import AppError from '../utils/error/appError.js';
 
 class TourController {

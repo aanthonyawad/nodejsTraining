@@ -1,4 +1,6 @@
+// MODEL
 import Tour from './tour.model.js';
+//UTIL
 import MongoPaginationPipeline from '../utils/MongoPagination.js';
 class TourService {
   constructor() {

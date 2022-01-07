@@ -13,6 +13,7 @@ class AppError extends Error {
   getData(message, lang) {
     console.log(message);
     console.log(lang);
+    console.log(this.appLangError[message][lang]);
     return this.appLangError[message][lang];
   }
 }

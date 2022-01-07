@@ -15,7 +15,6 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 //UTILS
-
 import AppError from './utils/error/appError.js';
 
 class Middleware {
@@ -69,10 +68,30 @@ class Middleware {
 
   initErrorMiddleware(app) {
     app.use((err, req, res, next) => {
-      const statusCode = err.statusCode || 500;
-      return res.status(statusCode).json({
-        data: err.data,
-      });
+      if (process.env.NODE_ENV === 'development') {
+        return this.sendErrorDev(err, res);
+      } else if (process.env.NODE_ENV === 'production') {
+        return this.sendErrorProd(err, res);
+      }
+    });
+  }
+
+  //////////////////////////////////
+  // ERROR FUNCTIONS
+  //////////////////////////////////
+  sendErrorProd(err, res) {
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+      status: statusCode,
+      data: err.data,
+    });
+  }
+  sendErrorDev(err, res) {
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+      status: statusCode,
+      data: err.data,
+      stack: err.stack,
     });
   }
 }
