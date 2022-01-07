@@ -36,10 +36,16 @@ class MongoPaginationPipeline {
     }
   };
 
-  serve = (query) => {
+  project(pipeline) {
+    this.pipeline.push(pipeline);
+  }
+
+  serve = (project, query) => {
     this.setPipeline();
     this.filter(query);
     this.sort(query);
+    this.project(project);
+    console.log(this.pipeline);
     return this.pipeline;
   };
 }

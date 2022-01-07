@@ -13,7 +13,7 @@ class TourController {
   getAllTours = async (req, res, next) => {
     try {
       //TODO create result obj
-      const tours = await this.service.getAllTours(req.query);
+      const tours = await this.service.getAllToursPaginated(req.query);
       return res.send(tours);
     } catch (e) {
       console.log(e);

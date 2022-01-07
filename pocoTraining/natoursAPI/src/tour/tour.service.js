@@ -34,14 +34,23 @@ class TourService {
     return tour;
   };
 
-  getAllTours = async (query) => {
-    let pipeline = this.pipeline.serve(query);
-    return await Tour.aggregate(pipeline);
+  getAllTours = async () => {
+    return await Tour.find();
   };
 
   getAllToursPaginated = async (query) => {
-    const { id: _id, price, name } = query;
-    return await Tour.find();
+    let pipeline = this.pipeline.serve(
+      {
+        $project: {
+          _id: -1,
+          duration: 1,
+          maxGroupSize: 1,
+          price: 1,
+        },
+      },
+      query
+    );
+    return await Tour.aggregate(pipeline);
   };
 
   activateDeactivateTour = async (flag, id) => {
