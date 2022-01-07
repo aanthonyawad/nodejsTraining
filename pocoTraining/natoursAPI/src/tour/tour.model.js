@@ -24,7 +24,12 @@ const tourSchema = new Schema(
       type: Number,
       required: [true, 'A Tour must have a rating'],
     },
-    priceDiscount: Number,
+    priceDiscount: {
+      type: Number,
+      validate: function (val) {
+        return val < this.price;
+      },
+    },
     ratingsAverage: {
       type: Number,
       default: 4.5,
@@ -76,7 +81,7 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
-tourSchema.post(/^find/, (docs, next) => {
+tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query took ${Date.now() - this.start} millis`);
   next();
 });

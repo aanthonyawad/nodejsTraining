@@ -34,6 +34,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Tour.deleteMany();
+    await Tour.collection.drop();
     process.exit();
   } catch (e) {
     console.log(e);

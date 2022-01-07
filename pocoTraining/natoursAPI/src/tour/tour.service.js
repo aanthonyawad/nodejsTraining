@@ -25,7 +25,10 @@ class TourService {
   updateTour = async (data, id) => {
     data._id = id;
     let tour = this.addData(data);
-    await tour.updateOne(data);
+    await tour.updateOne(data, {
+      new: true,
+      runValidators: true,
+    });
     return tour;
   };
 
