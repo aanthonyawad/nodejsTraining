@@ -1,5 +1,6 @@
 //Imports
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 import slugify from 'slugify';
 
 const { Schema } = mongoose;
@@ -25,6 +26,7 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'A User must have an email'],
     trim: true,
+    unique: true,
   },
   photo: {
     type: String,
@@ -52,6 +54,12 @@ const userSchema = new Schema({
   deleted: Boolean,
   createdDate: Date,
   updatedDate: Date,
+});
+
+userSchema.pre('save', async function (next) {
+  this.secret.password = await bcrypt(this.secret.password, 12);
+  this.secret.passwordConfirm = undefined;
+  next();
 });
 
 export default mongoose.model('User', userSchema);
