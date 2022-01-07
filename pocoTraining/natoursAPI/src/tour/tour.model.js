@@ -41,11 +41,14 @@ const tourSchema = new Schema(
       type: String,
       trim: true,
     },
-
     active: Boolean,
     deleted: Boolean,
     createdDate: Date,
     updatedDate: Date,
+    secretTour: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -60,7 +63,6 @@ tourSchema.virtual('durationWeeks').get(function () {
 //DOCUMENT Middlewar: runs before .save() and .insert but not .insertMany()
 tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
-  console.log(this.slug);
   next();
 });
 // tourSchema.post('save', (doc, next) => {
@@ -68,4 +70,10 @@ tourSchema.pre('save', function (next) {
 //   next();
 // });
 
+//QUERY MIDDLEWARE
+// tourSchema.pre('find', function (next) {
+//   //only return  secret tour
+//   this.find({ secretTour: { $eq: true } });
+//   next();
+// });
 export default mongoose.model('Tour', tourSchema);
