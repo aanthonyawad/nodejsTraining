@@ -71,9 +71,14 @@ tourSchema.pre('save', function (next) {
 // });
 
 //QUERY MIDDLEWARE
-// tourSchema.pre('find', function (next) {
-//   //only return  secret tour
-//   this.find({ secretTour: { $eq: true } });
-//   next();
-// });
+tourSchema.pre(/^find/, function (next) {
+  this.start = Date.now();
+  next();
+});
+
+tourSchema.post(/^find/, (docs, next) => {
+  console.log(`Query took ${Date.now() - this.start} millis`);
+  next();
+});
+
 export default mongoose.model('Tour', tourSchema);
