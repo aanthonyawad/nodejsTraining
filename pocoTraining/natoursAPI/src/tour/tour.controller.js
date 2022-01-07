@@ -54,7 +54,18 @@ class TourController {
       return res.send(e);
     }
   };
+
+  getTourStats = async (req, res, next) => {
+    try {
+      //TODO create result obj
+      const tourStats = await this.service.getTourStats();
+      return res.send(tourStats);
+    } catch (e) {
+      return res.send(e);
+    }
+  };
   initializesRoutes = async (app) => {
+    app.get(`${this.route}/stats/`, this.getTourStats);
     app.get(`${this.route}/`, this.getAllTours);
     app.post(`${this.route}/`, this.createNewTour);
     app.get(`${this.route}/:id`, this.findOneTour);

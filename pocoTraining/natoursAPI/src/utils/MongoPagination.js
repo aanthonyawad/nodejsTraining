@@ -36,7 +36,7 @@ class MongoPaginationPipeline {
     }
   };
 
-  project(pipeline) {
+  add(pipeline) {
     this.pipeline.push(pipeline);
   }
 
@@ -44,7 +44,7 @@ class MongoPaginationPipeline {
     this.setPipeline();
     this.filter(query);
     this.sort(query);
-    this.project(project);
+    this.add(project);
     console.log(this.pipeline);
     return this.pipeline;
   };
