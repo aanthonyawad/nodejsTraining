@@ -19,6 +19,13 @@ class UserController {
   signup = async (req, res, next) => {
     try {
       const token = await this.service.signup(req.body);
+      res.cookie('token', token, {
+        expiresIn: new Date(
+          Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        // secure: true,
+        httpOnly: true,
+      });
       return res.status(201).json(token);
     } catch (err) {
       //IMPLEMENT LANGUAGE ERROR HANDLING
@@ -30,6 +37,13 @@ class UserController {
   login = async (req, res, next) => {
     try {
       const token = await this.service.login(req.body);
+      res.cookie('token', token, {
+        expiresIn: new Date(
+          Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        // secure: true,
+        httpOnly: true,
+      });
       return res.status(200).json(token);
     } catch (err) {
       console.log(err);
@@ -66,6 +80,13 @@ class UserController {
     try {
       // i have the logged in user from the middleware
       const token = await this.service.changePassword(req.user, req.body);
+      res.cookie('token', token, {
+        expiresIn: new Date(
+          Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        // secure: true,
+        httpOnly: true,
+      });
       return res.status(200).json(token);
     } catch (err) {
       //IMPLEMENT LANGUAGE ERROR HANDLING
