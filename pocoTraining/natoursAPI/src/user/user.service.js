@@ -16,6 +16,12 @@ class UserService {
     return user;
   };
 
+  generateToken(id) {
+    return jwt.sign({ id: id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+  }
+
   signup = async (body) => {
     let user = this.addData(body);
     user.active = true;
@@ -25,9 +31,7 @@ class UserService {
       throw new Error('invalidPassword');
     }
     await user.save();
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
+    const token = this.generateToken(user._id);
     return { token: token };
   };
 
@@ -36,14 +40,12 @@ class UserService {
     if (!email && !password) {
       throw new Error('invalidInput');
     }
+
     const user = await this.getSingleUser(body);
     if (!user) {
       throw new Error('userDoesNotExist');
     }
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
+    const token = this.generateToken(user._id);
     return { token: token };
   };
 
