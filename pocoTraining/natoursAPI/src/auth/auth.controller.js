@@ -20,16 +20,16 @@ class AuthControllerMiddleware {
           throw new Error('invalidLogin');
         }
         //verify token
-        console.log('decoded');
         const decoded = await promisify(jwt.verify)(
           token,
           process.env.JWT_SECRET
         );
-        console.log(decoded);
       } else {
         throw new Error('invalidLogin');
       }
     } catch (err) {
+      console.log(err.message);
+      err.message;
       const appError = new AppError(err.message, 401, req.lang);
       return next(appError);
     }

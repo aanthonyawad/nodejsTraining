@@ -11,6 +11,7 @@ class AppError extends Error {
   }
 
   getData(message, lang) {
+    if (message === 'invalid signature') message = 'invalidLogin';
     console.log(message);
     console.log(lang);
     console.log(this.appLangError[message][lang]);
