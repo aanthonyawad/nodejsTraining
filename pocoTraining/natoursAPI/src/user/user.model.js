@@ -80,14 +80,11 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 };
 
 userSchema.methods.verifyPassword = async function (password) {
-  console.log(password);
-  console.log(this.secret.password);
   if (this.secret.password) {
     const verifiedPassword = await bcrypt.compare(
       password,
       this.secret.password
     );
-    console.log(verifiedPassword);
     return verifiedPassword;
   }
   return false;

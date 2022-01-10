@@ -5,11 +5,15 @@ import UserService from './user.service.js';
 //UTIL
 import AppError from '../utils/error/appError.js';
 
+// CONTROLLERS
+import AuthControllerMiddleware from '../auth/auth.controller.js';
+
 class UserController {
   constructor(app) {
     this.route = `/api/v1/user`;
     this.cmsRoute = `/api/v1/cms/user`;
     this.service = new UserService();
+    this.authControllerMiddeware = new AuthControllerMiddleware();
     this.initializesRoutes(app);
   }
   signup = async (req, res, next) => {
@@ -58,12 +62,28 @@ class UserController {
     }
   };
 
+  changePassword = async (req, res, next) => {
+    try {
+      // i have the logged in user from the middleware
+      const token = await this.service.changePassword(req.user, req.body);
+      return res.status(200).json(token);
+    } catch (err) {
+      //IMPLEMENT LANGUAGE ERROR HANDLING
+      console.log(err);
+      const appError = new AppError(err.message, 401, req.lang);
+      return next(appError);
+    }
+  };
+
   initializesRoutes = async (app) => {
     app.post(`${this.route}/login`, this.login);
     app.post(`${this.route}/forgotpassword`, this.forgotPassword);
     app.post(`${this.route}/resetPassword/:token`, this.resetPassword);
-
     app.post(`${this.route}/signup`, this.signup);
+
+    app.use(`${this.route}/`, this.authControllerMiddeware.protect);
+
+    app.patch(`${this.route}/updatepassword`, this.changePassword);
   };
 }
 export default UserController;

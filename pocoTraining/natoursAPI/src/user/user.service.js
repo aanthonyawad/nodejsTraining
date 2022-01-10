@@ -109,6 +109,19 @@ class UserService {
     const token = this.generateToken(user._id);
     return { token: token };
   };
+
+  changePassword = async (user, body) => {
+    console.log(body);
+    console.log(user);
+    const { password, passwordConfirm } = body;
+    user.secret.password = password;
+    user.secret.passwordConfirm = passwordConfirm;
+
+    await user.save();
+    //generate new token;
+    const token = this.generateToken(user._id);
+    return { token: token };
+  };
   sendEmail = async (options) => {
     await new Email()
       .createTransporter()
