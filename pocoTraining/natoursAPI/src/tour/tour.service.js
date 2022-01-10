@@ -69,40 +69,13 @@ class TourService {
   };
 
   deleteUndeleteTour = async (flag, id) => {
-    const tour = await this.findOne(id);
+    const tour = await this.findOneTour(id);
     if (!tour) {
       throw new Error('error');
     }
     tour.deleted = flag;
     await tour.updateOne();
     return tour;
-  };
-
-  getTourStats = async () => {
-    try {
-      const result = await Tour.aggregate([
-        {
-          $match: { ratingsAverage: { $gte: 4.5 } },
-        },
-        {
-          $group: {
-            _id: null,
-            numRatings: { $sum: '$ratingsQuantity' },
-            avgRatings: { $avg: 'ratingAverage' },
-            avgPrice: { $avg: '$price' },
-            minPrice: { $min: '$price' },
-            maxPrice: { $max: '$price' },
-          },
-        },
-        {
-          $sort: { avgPrice: 1 },
-        },
-      ]);
-      return result;
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
   };
 }
 export default TourService;

@@ -4,10 +4,15 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import sanitizer from 'express-mongo-sanitize';
+import hpp from 'hpp';
 //CONTROLLERS
 import TourController from './tour/tour.controller.js';
 import UserController from './user/user.controller.js';
+import ReviewController from './review/review.controller.js';
 
 //DIRNMAE ALT
 import { dirname } from 'path';
@@ -27,8 +32,15 @@ class Middleware {
   }
 
   initMiddleware(app) {
+    app.use(helmet());
+    this.rateLimiter(app);
     if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
     app.use(express.json());
+    //DATA Sanitization against NOSQL query injection
+    app.use(sanitizer());
+    //DATA Sanitization against XSS
+    app.use(xss());
+    app.use(hpp());
     app.use(express.static(`${__dirname}/public`));
     app.use(cors());
     app.use(cookieParser());
@@ -57,7 +69,11 @@ class Middleware {
   }
 
   initControllers(app) {
-    const controllers = [new TourController(app), new UserController(app)];
+    const controllers = [
+      new TourController(app),
+      new UserController(app),
+      new ReviewController(app),
+    ];
   }
 
   initUnkownRoute(app) {
@@ -93,6 +109,15 @@ class Middleware {
       data: err.data,
       stack: err.stack,
     });
+  }
+
+  rateLimiter(app) {
+    const limiter = rateLimit({
+      max: 100,
+      windowMs: 60 * 60 * 1000,
+      message: 'Too many request from this IP please try again later.',
+    });
+    app.use('/api', limiter);
   }
 }
 export default Middleware;

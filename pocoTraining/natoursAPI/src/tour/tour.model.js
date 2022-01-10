@@ -46,6 +46,38 @@ const tourSchema = new Schema(
       type: String,
       trim: true,
     },
+    startLocation: {
+      //GEOJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        //GEOJSON
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
+
     active: Boolean,
     deleted: Boolean,
     createdDate: Date,
