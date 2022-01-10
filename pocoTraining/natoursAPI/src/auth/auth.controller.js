@@ -36,6 +36,7 @@ class AuthControllerMiddleware {
         if (freshUser.changedPasswordAfter(decoded.iat)) {
           throw new Error('invalidLogin');
         }
+        req.user = freshUser;
       } else {
         throw new Error('invalidLogin');
       }
@@ -44,6 +45,16 @@ class AuthControllerMiddleware {
       return next(appError);
     }
     return next();
+  };
+
+  restrictTo = (...roles) => {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+        const appError = new AppError('accessDenied', 403, req.lang);
+        next(appError);
+      }
+      next();
+    };
   };
 }
 export default AuthControllerMiddleware;

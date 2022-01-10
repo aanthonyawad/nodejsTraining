@@ -1,4 +1,5 @@
 //Imports
+import crypto from 'crypto';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
@@ -48,7 +49,16 @@ const userSchema = new Schema({
     required: [true, 'A User must have an email'],
     trim: true,
   },
+
+  role: {
+    type: String,
+    enum: ['user', 'guide', 'admin'],
+    default: 'user',
+  },
   passwordChangedAt: Date,
+
+  passwordResetToken: String,
+  passwordResetExpires: Date,
   active: Boolean,
   deleted: Boolean,
   createdDate: Date,
@@ -70,14 +80,30 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 };
 
 userSchema.methods.verifyPassword = async function (password) {
+  console.log(password);
+  console.log(this.secret.password);
   if (this.secret.password) {
     const verifiedPassword = await bcrypt.compare(
       password,
       this.secret.password
     );
+    console.log(verifiedPassword);
     return verifiedPassword;
   }
   return false;
+};
+
+userSchema.methods.createPasswordResetToken = async function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 min
+  return {
+    resetToken: resetToken,
+    passwordResetExpires: this.passwordResetExpires,
+  };
 };
 
 export default mongoose.model('User', userSchema);

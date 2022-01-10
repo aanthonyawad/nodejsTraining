@@ -73,7 +73,11 @@ class TourController {
   initializesRoutes = async (app) => {
     app.get(`${this.route}/stats`, this.getTourStats);
 
-    app.use(`${this.route}/`, this.authControllerMiddeware.protect);
+    app.use(
+      `${this.route}/`,
+      this.authControllerMiddeware.protect,
+      this.authControllerMiddeware.restrictTo('admin')
+    );
     app.get(`${this.route}/`, this.getAllTours);
     app.post(`${this.route}/`, this.createNewTour);
     app.get(`${this.route}/:id`, this.findOneTour);

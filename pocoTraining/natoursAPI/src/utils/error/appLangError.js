@@ -31,4 +31,12 @@ export default {
       message: 'ar invalid Input',
     },
   },
+  accessDenied: {
+    en: {
+      message: 'en Access Denied',
+    },
+    ar: {
+      message: 'ar Access Denied',
+    },
+  },
 };
