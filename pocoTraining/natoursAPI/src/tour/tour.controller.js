@@ -4,12 +4,14 @@ import TourService from './tour.service.js';
 
 //UTIL
 import AppError from '../utils/error/appError.js';
+import AuthControllerMiddleware from '../auth/auth.controller.js';
 
 class TourController {
   constructor(app) {
     this.route = `/api/v1/tour`;
     this.cmsRoute = `/api/v1/cmstour`;
     this.service = new TourService();
+    this.authControllerMiddeware = new AuthControllerMiddleware();
     this.initializesRoutes(app);
   }
 
@@ -70,6 +72,8 @@ class TourController {
 
   initializesRoutes = async (app) => {
     app.get(`${this.route}/stats`, this.getTourStats);
+
+    app.use(`${this.route}/`, this.authControllerMiddeware.protect);
     app.get(`${this.route}/`, this.getAllTours);
     app.post(`${this.route}/`, this.createNewTour);
     app.get(`${this.route}/:id`, this.findOneTour);

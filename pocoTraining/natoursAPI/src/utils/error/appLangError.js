@@ -15,12 +15,12 @@ export default {
       message: 'ar language error',
     },
   },
-  invalidPassword: {
+  invalidLogin: {
     en: {
-      message: 'en invalid password',
+      message: 'en invalid login',
     },
     ar: {
-      message: 'ar invalid password',
+      message: 'ar invalid login',
     },
   },
 };
