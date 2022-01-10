@@ -4,8 +4,6 @@ import UserService from './user.service.js';
 
 //UTIL
 import AppError from '../utils/error/appError.js';
-import jwt from 'jsonwebtoken';
-import process from 'process';
 
 class UserController {
   constructor(app) {
@@ -31,7 +29,7 @@ class UserController {
       return res.status(201).json(token);
     } catch (err) {
       //IMPLEMENT LANGUAGE ERROR HANDLING
-      const appError = new AppError(err.message, 400, req.lang);
+      const appError = new AppError(err.message, 401, req.lang);
       return next(appError);
     }
   };

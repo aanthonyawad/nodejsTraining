@@ -23,4 +23,12 @@ export default {
       message: 'ar invalid login',
     },
   },
+  invalidInput: {
+    en: {
+      message: 'en invalid Input',
+    },
+    ar: {
+      message: 'ar invalid Input',
+    },
+  },
 };

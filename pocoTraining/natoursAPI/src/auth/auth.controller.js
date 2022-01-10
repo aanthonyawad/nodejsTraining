@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken';
 
 //UTIL
 import AppError from '../utils/error/appError.js';
+
+//Models
+import User from '../user/user.model.js';
+
 class AuthControllerMiddleware {
   constructor() {}
 
@@ -24,12 +28,18 @@ class AuthControllerMiddleware {
           token,
           process.env.JWT_SECRET
         );
+        // check if user exists
+        const freshUser = await User.findById(decoded.id);
+        if (!freshUser) {
+          throw new Error('invalidLogin');
+        }
+        if (freshUser.changedPasswordAfter(decoded.iat)) {
+          throw new Error('invalidLogin');
+        }
       } else {
         throw new Error('invalidLogin');
       }
     } catch (err) {
-      console.log(err.message);
-      err.message;
       const appError = new AppError(err.message, 401, req.lang);
       return next(appError);
     }

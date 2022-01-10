@@ -48,7 +48,7 @@ const userSchema = new Schema({
     required: [true, 'A User must have an email'],
     trim: true,
   },
-
+  passwordChangedAt: Date,
   active: Boolean,
   deleted: Boolean,
   createdDate: Date,
@@ -60,5 +60,24 @@ userSchema.pre('save', async function (next) {
   this.secret.passwordConfirm = undefined;
   next();
 });
+
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(this.passwordChangedAt.getTime(), 10);
+    return JWTTimestamp < changedTimestamp; // 200 < 100
+  }
+  return false;
+};
+
+userSchema.methods.verifyPassword = async function (password) {
+  if (this.secret.password) {
+    const verifiedPassword = await bcrypt.compare(
+      password,
+      this.secret.password
+    );
+    return verifiedPassword;
+  }
+  return false;
+};
 
 export default mongoose.model('User', userSchema);

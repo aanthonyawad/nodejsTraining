@@ -20,7 +20,6 @@ app.listen(port, () => {
 
 process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);
-  process.exit();
 });
 
 process.on('uncaughtException ', (err) => {

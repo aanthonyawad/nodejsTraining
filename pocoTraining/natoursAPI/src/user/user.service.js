@@ -52,8 +52,12 @@ class UserService {
   getSingleUser = async (body) => {
     const user = await User.findOne({
       email: body.username,
-      'secret.password': body.password,
     });
+
+    const verifiedPassword = await user.verifyPassword(body.password);
+    if (!verifiedPassword) {
+      throw new Error('invalidInput');
+    }
     return user;
   };
 }
