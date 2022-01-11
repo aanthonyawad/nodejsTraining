@@ -96,6 +96,18 @@ class UserController {
     }
   };
 
+  me = async (req, res, next) => {
+    try {
+      const me = await req.user;
+      return res.json(me);
+    } catch (err) {
+      //IMPLEMENT LANGUAGE ERROR HANDLING
+      console.log(err);
+      const appError = new AppError(err.message, 401, req.lang);
+      return next(appError);
+    }
+  };
+
   initializesRoutes = async (app) => {
     app.post(`${this.route}/login`, this.login);
     app.post(`${this.route}/forgotpassword`, this.forgotPassword);
@@ -103,7 +115,7 @@ class UserController {
     app.post(`${this.route}/signup`, this.signup);
 
     app.use(`${this.route}/`, this.authControllerMiddeware.protect);
-
+    app.get(`${this.route}/me`, this.me);
     app.patch(`${this.route}/updatepassword`, this.changePassword);
   };
 }
