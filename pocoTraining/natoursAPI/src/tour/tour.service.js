@@ -67,15 +67,23 @@ class TourService {
     await tour.updateOne();
     return tour;
   };
-
-  deleteUndeleteTour = async (flag, id) => {
-    const tour = await this.findOneTour(id);
-    if (!tour) {
-      throw new Error('error');
+  // /tours-within/:distance/center/:latlng/unit/:unit
+  getToursWithin = async (params) => {
+    const { distance, latlng, unit } = params;
+    const radius = unit === 'mi' ? distance / 3963.2 : distance / 6478.1;
+    const [lat, lng] = latlng;
+    if (!lat || !lng) {
+      throw new Error('fail');
     }
-    tour.deleted = flag;
-    await tour.updateOne();
-    return tour;
+
+    const tours = await Tour.find({
+      startLocation: {
+        $geoWithin: {
+          $centerSphere: [[lng, lat], radius],
+        },
+      },
+    });
+    return tours;
   };
 }
 export default TourService;

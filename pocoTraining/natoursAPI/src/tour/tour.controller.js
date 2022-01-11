@@ -1,5 +1,4 @@
 // IMPORTS
-import express from 'express';
 import TourService from './tour.service.js';
 
 //MODEL
@@ -9,6 +8,7 @@ import Tour from './tour.model.js';
 import AppError from '../utils/error/appError.js';
 import AuthControllerMiddleware from '../auth/auth.controller.js';
 import FactoryService from '../utils/factory/factory.service.js';
+
 class TourController {
   constructor(app) {
     this.route = `/api/v1/tour`;
@@ -84,7 +84,18 @@ class TourController {
       return res.send(e);
     }
   };
-
+  getToursWithin = async (req, res, next) => {
+    try {
+      //TODO create result obj
+      const toursWithing = await this.service.getToursWithin(req.params);
+      return res.send(toursWithing);
+    } catch (err) {
+      //IMPLEMENT LANGUAGE ERROR HANDLING
+      console.log(err);
+      const appError = new AppError(err.message, 401, req.lang);
+      return next(appError);
+    }
+  };
   initializesRoutes = async (app) => {
     app.get(`${this.route}/stats`, this.getTourStats);
 
@@ -98,6 +109,10 @@ class TourController {
     app.get(`${this.route}/:id`, this.findOneTour);
     app.put(`${this.route}/:id`, this.updateTour);
     app.delete(`${this.route}/:id`, this.deleteTour);
+    app.get(
+      `${this.route}/tours-within/:distance/center/:latlng/unit/:unit`,
+      this.getToursWithin
+    );
   };
 }
 export default TourController;
