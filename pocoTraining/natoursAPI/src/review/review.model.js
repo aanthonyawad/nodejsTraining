@@ -18,11 +18,11 @@ const reviewSchema = new Schema(
       max: 10,
     },
 
-    userId: {
+    user: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
     },
-    tourId: {
+    tour: {
       type: mongoose.Schema.ObjectId,
       ref: 'Tour',
     },

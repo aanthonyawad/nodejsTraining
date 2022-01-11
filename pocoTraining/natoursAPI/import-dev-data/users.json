@@ -1,0 +1,249 @@
+[
+  {
+  "_id":  "61dd47354d658450ebc43792",
+  "name": {
+    "firstName": "Jonas",
+    "lastName": "Schmedtmann"
+  },
+  "email": "admin@natours.io",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$LTaH3hyYMDGt2jtEJ3vn8.yEq9Kt/Wzu.2Xq6l.qY4S7LQB6lemVO",
+    "passwordConfirm": "$2a$12$LTaH3hyYMDGt2jtEJ3vn8.yEq9Kt/Wzu.2Xq6l.qY4S7LQB6lemVO"
+  },
+  "role": "admin",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id": "61dd47a54d658450ebc4379a",
+  "name": {
+    "firstName": "Lourdes",
+    "lastName": "Browning"
+  },
+  "email": "loulou@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$GKPp7447hSGCglM52/40zuaQ7suEqq0O6QMscm.A3k74PZAm01dZu",
+    "passwordConfirm": "$2a$12$GKPp7447hSGCglM52/40zuaQ7suEqq0O6QMscm.A3k74PZAm01dZu"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id":  "61dd47c24d658450ebc4379e",
+  "name": {
+    "firstName": "Sophie",
+    "lastName": "Louise"
+  },
+  "email": "sophie@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$PoFGTSEE02JloT3kHoXhVOY8.zYgZhwI9L1Csu/ylJDTdz47xhL1a",
+    "passwordConfirm": "$2a$12$PoFGTSEE02JloT3kHoXhVOY8.zYgZhwI9L1Csu/ylJDTdz47xhL1a"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id":  "61dd47d64d658450ebc437a2",
+  "name": {
+    "firstName": "Ayla",
+    "lastName": "Cornell"
+  },
+  "email": "ayls@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$.GNeNy3Mi7A8ARdGzbivmOzhzT2HAEgCokr7dfqGZsWeZ/7lj.y72",
+    "passwordConfirm": "$2a$12$.GNeNy3Mi7A8ARdGzbivmOzhzT2HAEgCokr7dfqGZsWeZ/7lj.y72"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id":"61dd47fa4d658450ebc437a6",
+  "name": {
+    "firstName": "Leo",
+    "lastName": "Gillespie"
+  },
+  "email": "leo@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$NG0/UugbRhWsWz2vxXqs1.sRI3vZ.t8KLQmAAIU75JmmJzz94Mtlq",
+    "passwordConfirm": "$2a$12$NG0/UugbRhWsWz2vxXqs1.sRI3vZ.t8KLQmAAIU75JmmJzz94Mtlq"
+  },
+  "role": "guide",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id": "61dd48184d658450ebc437aa",
+  "name": {
+    "firstName": "Kate",
+    "lastName": "Morrison"
+  },
+  "email": "kate@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$ZxhPSw.q06rT0owtzPFkQ.1HTscCobfOuBSP3RKrsPE/lUxmjP13K",
+    "passwordConfirm": "$2a$12$ZxhPSw.q06rT0owtzPFkQ.1HTscCobfOuBSP3RKrsPE/lUxmjP13K"
+  },
+  "role": "guide",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id": "61dd48964d658450ebc437ae",
+  "name": {
+    "firstName": "Ben",
+    "lastName": "Hadley"
+  },
+  "email": "ben@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$lS9L0cWWR4jQfSo6Dto8Z.SfMePxnixtuH.Rqn3psWnc9jHafte9K",
+    "passwordConfirm": "$2a$12$lS9L0cWWR4jQfSo6Dto8Z.SfMePxnixtuH.Rqn3psWnc9jHafte9K"
+  },
+  "role": "guide",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id":"61dd48a84d658450ebc437b2",
+  "name": {
+    "firstName": "Laura",
+    "lastName": "Wilson"
+  },
+  "email": "laura@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$Y3fE4x7wXVne/nlbOyTKkOb71I1Uf9QMBsZZFRzyrKZh/DLAi.Fke",
+    "passwordConfirm": "$2a$12$Y3fE4x7wXVne/nlbOyTKkOb71I1Uf9QMBsZZFRzyrKZh/DLAi.Fke"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:06:48.678Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id":  "61dd48ba4d658450ebc437ba",
+  "name": {
+    "firstName": "Max",
+    "lastName": "Smith"
+  },
+  "email": "max@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$f8WCrIsut2sw2t/GA.ILBO.xUrCw7HHgQocrSqoFgj9x1Hk4tpMay",
+    "passwordConfirm": "$2a$12$f8WCrIsut2sw2t/GA.ILBO.xUrCw7HHgQocrSqoFgj9x1Hk4tpMay"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:07:06.370Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:06:30.448Z",
+  "__v": 0
+},
+  {
+  "_id":  "61dd48c94d658450ebc437be",
+  "name": {
+    "firstName": "Isabel",
+    "lastName": "Kirkland"
+  },
+  "email": "isabel@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$/9KlFdHR3flqPNRa7r/y5.mkUhUP4UuTN7vNFz90b33tfIO/XNtPy",
+    "passwordConfirm": "$2a$12$/9KlFdHR3flqPNRa7r/y5.mkUhUP4UuTN7vNFz90b33tfIO/XNtPy"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate":"2022-01-11T09:07:21.405Z",
+  "__v": 0
+},
+  {
+  "_id": "61dd48e14d658450ebc437c2",
+  "name": {
+    "firstName": "Alexander",
+    "lastName": "Jones"
+  },
+  "email": "alex@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$BnNziOClzDqn/31mRvFdFuXz3BOzKj6mMUD34Jl816CttBpWfPxum",
+    "passwordConfirm": "$2a$12$BnNziOClzDqn/31mRvFdFuXz3BOzKj6mMUD34Jl816CttBpWfPxum"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:07:45.347Z",
+  "__v": 0
+},
+  {
+  "_id": "61dd48f34d658450ebc437c6",
+  "name": {
+    "firstName": "John",
+    "lastName": "Riley"
+  },
+  "email": "john@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$4azHZBplRdOVQgrsfy1Pb.EIMs4R/jP2WdZvmca7/hkS.y0UIDF/W",
+    "passwordConfirm": "$2a$12$4azHZBplRdOVQgrsfy1Pb.EIMs4R/jP2WdZvmca7/hkS.y0UIDF/W"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:06:30.448Z",
+  "active": true,
+  "deleted": false,
+  "createdDate": "2022-01-11T09:08:03.899Z",
+  "__v": 0
+},
+  {
+  "_id": "61dd490c4d658450ebc437ca",
+  "name": {
+    "firstName": "Lisa",
+    "lastName": "Brown"
+  },
+  "email": "lisa@example.com",
+  "photo": "user-1.jpg",
+  "secret": {
+    "password": "$2a$12$34ug9F589EYZ1lbwGS4NNO4fRBMwfoqH6Yz9omb5zkQLRtWIuGC.W",
+    "passwordConfirm": "$2a$12$34ug9F589EYZ1lbwGS4NNO4fRBMwfoqH6Yz9omb5zkQLRtWIuGC.W"
+  },
+  "role": "user",
+  "updatedDate": "2022-01-11T09:08:28.150Z",
+  "active": true,
+  "deleted": false,
+  "createdDate":  "2022-01-11T09:08:28.151Z",
+  "__v": 0
+}
+]
