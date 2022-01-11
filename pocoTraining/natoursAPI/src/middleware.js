@@ -9,6 +9,8 @@ import helmet from 'helmet';
 import xss from 'xss-clean';
 import sanitizer from 'express-mongo-sanitize';
 import hpp from 'hpp';
+import pug from 'pug';
+
 //CONTROLLERS
 import TourController from './tour/tour.controller.js';
 import UserController from './user/user.controller.js';
@@ -16,6 +18,7 @@ import ReviewController from './review/review.controller.js';
 
 //DIRNMAE ALT
 import { dirname } from 'path';
+import path from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -24,6 +27,7 @@ import AppError from './utils/error/appError.js';
 
 class Middleware {
   constructor(app) {
+    this.initPug(app);
     this.initMiddleware(app);
     this.initDb(app);
     this.initControllers(app);
@@ -41,7 +45,6 @@ class Middleware {
     //DATA Sanitization against XSS
     app.use(xss());
     app.use(hpp());
-    app.use(express.static(`${__dirname}/public`));
     app.use(cors());
     app.use(cookieParser());
 
@@ -118,6 +121,15 @@ class Middleware {
       message: 'Too many request from this IP please try again later.',
     });
     app.use('/api', limiter);
+  }
+
+  initPug(app) {
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'pug');
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.get('/', (req, res) => {
+      res.render('base');
+    });
   }
 }
 export default Middleware;
