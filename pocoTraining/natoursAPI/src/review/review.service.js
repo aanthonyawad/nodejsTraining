@@ -16,7 +16,6 @@ class ReviewService {
   };
 
   createNewReview = async (data, user) => {
-    console.log(data);
     data.active = true;
     data.deleted = false;
     data.userId = user._id;

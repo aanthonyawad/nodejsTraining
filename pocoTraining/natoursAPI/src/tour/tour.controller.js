@@ -2,16 +2,20 @@
 import express from 'express';
 import TourService from './tour.service.js';
 
+//MODEL
+import Tour from './tour.model.js';
+
 //UTIL
 import AppError from '../utils/error/appError.js';
 import AuthControllerMiddleware from '../auth/auth.controller.js';
-
+import FactoryService from '../utils/factory/factory.service.js';
 class TourController {
   constructor(app) {
     this.route = `/api/v1/tour`;
     this.cmsRoute = `/api/v1/cmstour`;
     this.service = new TourService();
     this.authControllerMiddeware = new AuthControllerMiddleware();
+    this.factoryService = new FactoryService(Tour);
     this.initializesRoutes(app);
   }
 
@@ -38,7 +42,18 @@ class TourController {
   };
 
   deleteTour = async (req, res, next) => {
-    return res.send(req.lang);
+    try {
+      const deletedTour = await this.factoryService.deleteUndeleteModel(
+        true,
+        req.params.id
+      );
+      return res.json(deletedTour);
+    } catch (err) {
+      //IMPLEMENT LANGUAGE ERROR HANDLING
+      console.log(err);
+      const appError = new AppError(err.message, 401, req.lang);
+      return next(appError);
+    }
   };
 
   updateTour = async (req, res, next) => {
