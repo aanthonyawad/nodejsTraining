@@ -1,1 +1,42 @@
-h1 The Park Camper
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet' href='css/style.css')
+        link(rel='shortcut icon' type='img/png' href='img/favicon.png')
+        link(rel='stylesheet' href='https://fonts.googleapis.com/css/familyLato:300,300i,700')
+        title Natours | Exciting tours for adventurous people
+
+    body
+        //- Header
+        header.header
+            nav.nav.nav--tours
+                a.nav__el(href='#')
+            div.header__logo
+                img(src='img/logo-white.png' alt='Natours LOGO')
+            nav.nav.nav--user
+                a.nav__el(href='#') My Bookings
+                a.nav__el(href='#')
+                    img(src='img/user.png' alt='USER PHOTO')
+                    span Jonas
+                button.nav__el LOGIN
+                button.nav__el.nav__el--cta SIGN UP
+
+        section.overview
+            h1 SECTION
+
+        div.footer
+            div.footer__logo
+                img(src='img/logo-green.png' alt='Natours Logo')
+            ul.footer__nav
+                li
+                    a(href='#') About Us
+                li
+                    a(href='#') Download Apps
+                li
+                    a(href='#') Become A Guide
+                li
+                    a(href='#') Careers
+                li
+                    a(href='#') Contact Us
