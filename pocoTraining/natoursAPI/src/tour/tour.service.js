@@ -85,5 +85,28 @@ class TourService {
     });
     return tours;
   };
+  getDistances = async (params) => {
+    const { latlng, unit } = params;
+    const [lat, lng] = latlng;
+    if (!lat || !lng) {
+      throw new Error('fail');
+    }
+    const distances = await Tour.aggregate([
+      {
+        $geoNear: {
+          near: { type: 'Point', coordinates: [lng * 1, lat * 1] },
+          distanceField: 'distance',
+        },
+      },
+      {
+        $project: {
+          distance: 1,
+          _id: 0,
+          name: 1,
+        },
+      },
+    ]);
+    return distances;
+  };
 }
 export default TourService;

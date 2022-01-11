@@ -96,6 +96,18 @@ class TourController {
       return next(appError);
     }
   };
+  getDistances = async (req, res, next) => {
+    try {
+      //TODO create result obj
+      const distances = await this.service.getDistances(req.params);
+      return res.json(distances);
+    } catch (err) {
+      //IMPLEMENT LANGUAGE ERROR HANDLING
+      console.log(err);
+      const appError = new AppError(err.message, 401, req.lang);
+      return next(appError);
+    }
+  };
   initializesRoutes = async (app) => {
     app.get(`${this.route}/stats`, this.getTourStats);
 
@@ -113,6 +125,7 @@ class TourController {
       `${this.route}/tours-within/:distance/center/:latlng/unit/:unit`,
       this.getToursWithin
     );
+    app.get(`${this.route}/:latlng/unit/:unit`, this.getDistances);
   };
 }
 export default TourController;
