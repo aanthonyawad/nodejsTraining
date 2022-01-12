@@ -1,12 +1,15 @@
 // IMPORTS
 import express from 'express';
-import UserService from './user.service.js';
-
+import multer from 'multer';
 //UTIL
 import AppError from '../utils/error/appError.js';
 
 // CONTROLLERS
 import AuthControllerMiddleware from '../auth/auth.controller.js';
+
+// SERVICES
+import UserService from './user.service.js';
+import FactoryService from '../utils/factory/factory.service.js';
 
 class UserController {
   constructor(app) {
@@ -14,6 +17,7 @@ class UserController {
     this.cmsRoute = `/api/v1/cms/user`;
     this.service = new UserService();
     this.authControllerMiddeware = new AuthControllerMiddleware();
+    this.factoryService = new FactoryService();
     this.initializesRoutes(app);
   }
   signup = async (req, res, next) => {
@@ -36,6 +40,8 @@ class UserController {
 
   login = async (req, res, next) => {
     try {
+      console.log(req.file);
+      console.log(req.body);
       const token = await this.service.login(req.body);
       res.cookie('token', token, {
         expiresIn: new Date(
@@ -109,7 +115,7 @@ class UserController {
   };
 
   initializesRoutes = async (app) => {
-    app.post(`${this.route}/login`, this.login);
+    app.post(`${this.route}/login`, this.upload, this.login);
     app.post(`${this.route}/forgotpassword`, this.forgotPassword);
     app.post(`${this.route}/resetPassword/:token`, this.resetPassword);
     app.post(`${this.route}/signup`, this.signup);
@@ -118,5 +124,27 @@ class UserController {
     app.get(`${this.route}/me`, this.me);
     app.patch(`${this.route}/updatepassword`, this.changePassword);
   };
+  multerStorage = () => ({
+    destination: (req, file, cb) => {
+      cb(null, 'public/img/users');
+    },
+    filename: (req, file, cb) => {
+      const ext = file.mimetype.split('/')[1];
+      // id = req.user._id;
+      cb(null, `user-id-${Date.now()}.${ext}`);
+    },
+  });
+
+  multerImageFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+      cb(null, true);
+    } else {
+      cb(new Error('fail'), false);
+    }
+  };
+
+  upload = multer({
+    ext: 'public/img/users',
+  }).single('photo');
 }
 export default UserController;
