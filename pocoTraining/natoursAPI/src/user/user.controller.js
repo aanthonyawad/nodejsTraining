@@ -1,6 +1,7 @@
 // IMPORTS
 import express from 'express';
 import multer from 'multer';
+import sharp from 'sharp';
 //UTIL
 import AppError from '../utils/error/appError.js';
 
@@ -43,6 +44,7 @@ class UserController {
       console.log(req.file);
       console.log(req.body);
       const token = await this.service.login(req.body);
+
       res.cookie('token', token, {
         expiresIn: new Date(
           Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
@@ -50,6 +52,7 @@ class UserController {
         // secure: true,
         httpOnly: true,
       });
+      console.log(req.file.filename);
       return res.status(200).json(token);
     } catch (err) {
       console.log(err);
@@ -115,7 +118,7 @@ class UserController {
   };
 
   initializesRoutes = async (app) => {
-    app.post(`${this.route}/login`, this.upload, this.login);
+    app.post(`${this.route}/login`, this.upload, this.resizePhoto, this.login);
     app.post(`${this.route}/forgotpassword`, this.forgotPassword);
     app.post(`${this.route}/resetPassword/:token`, this.resetPassword);
     app.post(`${this.route}/signup`, this.signup);
@@ -144,7 +147,19 @@ class UserController {
   };
 
   upload = multer({
-    ext: 'public/img/users',
+    storage: multer.memoryStorage(),
+    filter: this.multerImageFilter,
   }).single('photo');
+
+  resizePhoto = async (req, res, next) => {
+    if (!req.file) next();
+    const ext = req.file.mimetype.split('/')[1];
+    req.file.filename = `user-id-${Date.now()}-.${ext}`;
+    await sharp(req.file.buffer)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/users/${req.file.filename}`);
+    next();
+  };
 }
 export default UserController;
