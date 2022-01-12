@@ -15,6 +15,7 @@ import pug from 'pug';
 import TourController from './tour/tour.controller.js';
 import UserController from './user/user.controller.js';
 import ReviewController from './review/review.controller.js';
+import PugController from './pug/pug.controller.js';
 
 //DIRNMAE ALT
 import { dirname } from 'path';
@@ -72,11 +73,10 @@ class Middleware {
   }
 
   initControllers(app) {
-    const controllers = [
-      new TourController(app),
-      new UserController(app),
-      new ReviewController(app),
-    ];
+    new PugController(app);
+    new TourController(app);
+    new UserController(app);
+    new ReviewController(app);
   }
 
   initUnkownRoute(app) {
@@ -127,9 +127,6 @@ class Middleware {
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'pug');
     app.use(express.static(path.join(__dirname, 'public')));
-    app.get('/', (req, res) => {
-      res.render('base');
-    });
   }
 }
 export default Middleware;

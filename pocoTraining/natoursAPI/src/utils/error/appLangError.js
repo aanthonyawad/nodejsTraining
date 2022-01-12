@@ -9,10 +9,10 @@ export default {
   },
   fail: {
     en: {
-      message: 'en language error',
+      message: 'en fail error',
     },
     ar: {
-      message: 'ar language error',
+      message: 'ar fail error',
     },
   },
   invalidLogin: {

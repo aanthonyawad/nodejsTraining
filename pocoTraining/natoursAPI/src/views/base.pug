@@ -10,33 +10,9 @@ html
 
     body
         //- Header
-        header.header
-            nav.nav.nav--tours
-                a.nav__el(href='#')
-            div.header__logo
-                img(src='img/logo-white.png' alt='Natours LOGO')
-            nav.nav.nav--user
-                a.nav__el(href='#') My Bookings
-                a.nav__el(href='#')
-                    img(src='img/user.png' alt='USER PHOTO')
-                    span Jonas
-                button.nav__el LOGIN
-                button.nav__el.nav__el--cta SIGN UP
-
-        section.overview
-            h1 SECTION
-
-        div.footer
-            div.footer__logo
-                img(src='img/logo-green.png' alt='Natours Logo')
-            ul.footer__nav
-                li
-                    a(href='#') About Us
-                li
-                    a(href='#') Download Apps
-                li
-                    a(href='#') Become A Guide
-                li
-                    a(href='#') Careers
-                li
-                    a(href='#') Contact Us
+        include _header
+        //-Content
+        block content
+            h1 this is a placecholder
+        //-Footer
+        include _header
