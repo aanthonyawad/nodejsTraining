@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-class Email {
+class EmailBuilder {
   constructor() {
     this.transporter;
     this.options;
@@ -24,8 +24,8 @@ class Email {
       from: 'Info Natours, <info@awad.io>',
       to: options.email,
       subject: options.subject,
+      html: true,
       text: options.text,
-      // html:
     };
     return this;
   }
@@ -34,4 +34,4 @@ class Email {
     await this.transporter.sendMail(this.options);
   }
 }
-export default Email;
+export default EmailBuilder;

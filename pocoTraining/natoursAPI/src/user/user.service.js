@@ -7,11 +7,11 @@ import User from './user.model.js';
 //UTIL
 import MongoPaginationPipeline from '../utils/MongoPagination.js';
 import * as process from 'process';
-import Email from '../utils/email/email.js';
+import EmailBuilder from '../utils/builder/emailBuilder.js';
 
 class UserService {
   constructor() {
-    this.email = new Email();
+    this.email = new EmailBuilder();
   }
   addData = (data) => {
     const user = new User({
@@ -80,12 +80,12 @@ class UserService {
     await user.save({ validateBeforeSave: false });
     const options = {
       email: 'user.awad@email.com',
-      subject: 'Reset Password Email',
+      subject: 'Reset Password EmailBuilder',
       text: `hello ${resetTokenObj.resetToken}\n your password will expire exactly after 10 mins at ${resetTokenObj.passwordResetExpires} `,
     };
     await this.sendEmail(options);
     const token = this.generateToken(user._id);
-    return { step1: 'Forgot Email Step 1  Sent!' };
+    return { step1: 'Forgot EmailBuilder Step 1  Sent!' };
   };
 
   resetPassword = async (unhashedPasswordResetToken) => {
@@ -102,7 +102,7 @@ class UserService {
     await user.save();
     const options = {
       email: 'user.awad@email.com',
-      subject: 'Reset Password Email',
+      subject: 'Reset Password EmailBuilder',
       text: `Reset Password Complete New Password is pass1234`,
     };
     await this.sendEmail(options);
@@ -123,7 +123,7 @@ class UserService {
     return { token: token };
   };
   sendEmail = async (options) => {
-    await new Email()
+    await new EmailBuilder()
       .createTransporter()
       .defineEmailOptions(options)
       .sendEmail();
