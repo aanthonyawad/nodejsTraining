@@ -52,7 +52,6 @@ class UserController {
         // secure: true,
         httpOnly: true,
       });
-      console.log(req.file.filename);
       return res.status(200).json(token);
     } catch (err) {
       console.log(err);

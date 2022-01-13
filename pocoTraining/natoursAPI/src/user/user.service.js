@@ -8,7 +8,6 @@ import User from './user.model.js';
 import MongoPaginationPipeline from '../utils/MongoPagination.js';
 import * as process from 'process';
 import EmailBuilder from '../utils/builder/emailBuilder.js';
-
 //DIRNMAE ALT
 import { dirname } from 'path';
 import path from 'path';
@@ -45,9 +44,7 @@ class UserService {
       email: user.email,
       subject: 'Welcome Email',
     };
-    console.log('before send emails');
     await this.sendEmailWelcome(options);
-    console.log('after send email');
     return { token: token };
   };
 
@@ -66,7 +63,7 @@ class UserService {
       email: user.email,
       subject: 'Welcome!',
     };
-
+    await this.sendEmailWelcome(options);
     const token = this.generateToken(user._id);
     return { token: token };
   };
@@ -127,8 +124,6 @@ class UserService {
   };
 
   changePassword = async (user, body) => {
-    console.log(body);
-    console.log(user);
     const { password, passwordConfirm } = body;
     user.secret.password = password;
     user.secret.passwordConfirm = passwordConfirm;
@@ -145,7 +140,7 @@ class UserService {
   };
 
   async sendEmailWelcome(options) {
-    await this.emailBuilder(options).sendEmailWelcome1();
+    await this.emailBuilder(options).sendEmailWelcome();
   }
 }
 export default UserService;

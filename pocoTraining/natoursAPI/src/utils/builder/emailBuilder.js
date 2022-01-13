@@ -1,3 +1,4 @@
+// IMPORTS
 import nodemailer from 'nodemailer';
 import htmlToText from 'html-to-text';
 import pug from 'pug';
@@ -16,8 +17,7 @@ class EmailBuilder {
 
   createTransporter() {
     this.transporter = nodemailer.createTransport({
-      port: process.env.EMAIL_PORT,
-      host: process.env.EMAIL_HOST,
+      service: 'SendGrid',
       auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
@@ -36,8 +36,7 @@ class EmailBuilder {
     return this;
   }
 
-  async sendEmailWelcome1() {
-    console.log('inside function');
+  async sendEmailWelcome() {
     const html = pug.renderFile(`${__dirname}/../../views/email/welcome.pug`);
     this.options.html = html;
     this.options.text = htmlToText.fromString(html);
