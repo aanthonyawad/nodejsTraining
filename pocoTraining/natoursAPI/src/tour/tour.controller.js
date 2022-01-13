@@ -114,7 +114,7 @@ class TourController {
     app.use(
       `${this.route}/`,
       this.authControllerMiddeware.protect,
-      this.authControllerMiddeware.restrictTo('admin')
+      this.authControllerMiddeware.restrictTo('admin', 'user')
     );
     app.get(`${this.route}/`, this.getAllTours);
     app.post(`${this.route}/`, this.createNewTour);

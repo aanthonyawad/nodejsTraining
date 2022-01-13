@@ -16,6 +16,7 @@ import TourController from './tour/tour.controller.js';
 import UserController from './user/user.controller.js';
 import ReviewController from './review/review.controller.js';
 import PugController from './pug/pug.controller.js';
+import BookingController from './booking/booking.controller.js';
 
 //DIRNMAE ALT
 import { dirname } from 'path';
@@ -74,6 +75,7 @@ class Middleware {
 
   initControllers(app) {
     new PugController(app);
+    new BookingController(app);
     new TourController(app);
     new UserController(app);
     new ReviewController(app);
