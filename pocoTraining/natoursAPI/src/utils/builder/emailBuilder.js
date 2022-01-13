@@ -1,4 +1,12 @@
 import nodemailer from 'nodemailer';
+import htmlToText from 'html-to-text';
+import pug from 'pug';
+
+//DIRNMAE ALT
+import { dirname } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class EmailBuilder {
   constructor() {
@@ -21,16 +29,18 @@ class EmailBuilder {
 
   defineEmailOptions(options) {
     this.options = {
-      from: 'Info Natours, <info@awad.io>',
+      from: `Info Natours, <${process.env.EMAIL_FROM}>`,
       to: options.email,
       subject: options.subject,
-      html: true,
-      text: options.text,
     };
     return this;
   }
 
-  async sendEmail() {
+  async sendEmailWelcome1() {
+    console.log('inside function');
+    const html = pug.renderFile(`${__dirname}/../../views/email/welcome.pug`);
+    this.options.html = html;
+    this.options.text = htmlToText.fromString(html);
     await this.transporter.sendMail(this.options);
   }
 }

@@ -9,10 +9,14 @@ import MongoPaginationPipeline from '../utils/MongoPagination.js';
 import * as process from 'process';
 import EmailBuilder from '../utils/builder/emailBuilder.js';
 
+//DIRNMAE ALT
+import { dirname } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 class UserService {
-  constructor() {
-    this.email = new EmailBuilder();
-  }
+  constructor() {}
   addData = (data) => {
     const user = new User({
       ...data,
@@ -37,6 +41,13 @@ class UserService {
     }
     await user.save();
     const token = this.generateToken(user._id);
+    const options = {
+      email: user.email,
+      subject: 'Welcome Email',
+    };
+    console.log('before send emails');
+    await this.sendEmailWelcome(options);
+    console.log('after send email');
     return { token: token };
   };
 
@@ -50,6 +61,12 @@ class UserService {
     if (!user) {
       throw new Error('userDoesNotExist');
     }
+
+    const options = {
+      email: user.email,
+      subject: 'Welcome!',
+    };
+
     const token = this.generateToken(user._id);
     return { token: token };
   };
@@ -79,11 +96,10 @@ class UserService {
     const resetTokenObj = await user.createPasswordResetToken();
     await user.save({ validateBeforeSave: false });
     const options = {
-      email: 'user.awad@email.com',
-      subject: 'Reset Password EmailBuilder',
-      text: `hello ${resetTokenObj.resetToken}\n your password will expire exactly after 10 mins at ${resetTokenObj.passwordResetExpires} `,
+      email: user.email,
+      subject: 'Reset Email',
     };
-    await this.sendEmail(options);
+    // await this.sendEmail(options);
     const token = this.generateToken(user._id);
     return { step1: 'Forgot EmailBuilder Step 1  Sent!' };
   };
@@ -105,7 +121,7 @@ class UserService {
       subject: 'Reset Password EmailBuilder',
       text: `Reset Password Complete New Password is pass1234`,
     };
-    await this.sendEmail(options);
+    // await this.sendEmail(options);
     const token = this.generateToken(user._id);
     return { token: token };
   };
@@ -122,11 +138,14 @@ class UserService {
     const token = this.generateToken(user._id);
     return { token: token };
   };
-  sendEmail = async (options) => {
-    await new EmailBuilder()
-      .createTransporter()
-      .defineEmailOptions(options)
-      .sendEmail();
+
+  //// EMAIL sending
+  emailBuilder = (options) => {
+    return new EmailBuilder().createTransporter().defineEmailOptions(options);
   };
+
+  async sendEmailWelcome(options) {
+    await this.emailBuilder(options).sendEmailWelcome1();
+  }
 }
 export default UserService;
