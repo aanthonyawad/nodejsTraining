@@ -1,6 +1,6 @@
 //Imports
-import mongoose from 'mongoose';
-import slugify from 'slugify';
+const slugify = require('slugify');
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -123,4 +123,4 @@ tourSchema.post(/^find/, function (docs, next) {
   next();
 });
 
-export default mongoose.model('Tour', tourSchema);
+module.exports = mongoose.model('Tour', tourSchema);

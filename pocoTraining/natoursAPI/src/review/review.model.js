@@ -1,6 +1,6 @@
 //Imports
-import mongoose from 'mongoose';
-import slugify from 'slugify';
+const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const { Schema } = mongoose;
 
@@ -37,5 +37,4 @@ const reviewSchema = new Schema(
     toObject: { virtuals: true },
   }
 );
-
-export default mongoose.model('Review', reviewSchema);
+module.exports = mongoose.model('Review', reviewSchema);

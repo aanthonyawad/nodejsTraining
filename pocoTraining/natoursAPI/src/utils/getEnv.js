@@ -1,2 +1,2 @@
 const getEnv = () => {};
-export default getEnv;
+module.exports = getEnv;

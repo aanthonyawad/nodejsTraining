@@ -1,7 +1,7 @@
 // MODEL
-import Tour from './tour.model.js';
+const Tour = require('./tour.model');
 //UTIL
-import MongoPaginationPipeline from '../utils/MongoPagination.js';
+const MongoPaginationPipeline = require('../utils/MongoPagination');
 class TourService {
   constructor() {
     this.pipeline = new MongoPaginationPipeline();
@@ -109,4 +109,4 @@ class TourService {
     return distances;
   };
 }
-export default TourService;
+module.exports = TourService;

@@ -1,13 +1,7 @@
 // IMPORTS
-import nodemailer from 'nodemailer';
-import htmlToText from 'html-to-text';
-import pug from 'pug';
-
-//DIRNMAE ALT
-import { dirname } from 'path';
-import path from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const nodemailer = require('nodemailer');
+const htmlToText = require('html-to-text');
+const pug = require('pug');
 
 class EmailBuilder {
   constructor() {
@@ -43,4 +37,4 @@ class EmailBuilder {
     await this.transporter.sendMail(this.options);
   }
 }
-export default EmailBuilder;
+module.exports = EmailBuilder;

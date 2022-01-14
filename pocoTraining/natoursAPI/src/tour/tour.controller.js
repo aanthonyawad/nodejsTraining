@@ -1,13 +1,14 @@
 // IMPORTS
-import TourService from './tour.service.js';
+const TourService = require('./tour.service');
 
 //MODEL
-import Tour from './tour.model.js';
+const Tour = require('./tour.model');
 
 //UTIL
-import AppError from '../utils/error/appError.js';
-import AuthControllerMiddleware from '../auth/auth.controller.js';
-import FactoryService from '../utils/factory/factory.service.js';
+const AppError = require('../utils/error/appError.js');
+const AuthControllerMiddleware = require('../auth/auth.controller.js');
+
+const FactoryService = require('../utils/factory/factory.service.js');
 
 class TourController {
   constructor(app) {
@@ -128,4 +129,4 @@ class TourController {
     app.get(`${this.route}/:latlng/unit/:unit`, this.getDistances);
   };
 }
-export default TourController;
+module.exports = TourController;

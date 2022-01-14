@@ -1,4 +1,4 @@
-const validateEnv = () => {
+exports.validateEnv = () => {
   if (!process.env.PREFIX) {
     throw new Error('Prefix Invalid!');
   }
@@ -19,4 +19,3 @@ const validateEnv = () => {
     throw new Error('DB CREDENTIALS Invalid!');
   }
 };
-export default validateEnv;

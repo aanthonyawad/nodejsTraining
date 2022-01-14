@@ -1,15 +1,13 @@
 // CONTROLLER
-import AuthControllerMiddleware from '../auth/auth.controller.js';
-import AppError from '../utils/error/appError.js';
+const AppError = require('../utils/error/appError');
 // TOUR SERVICE
-import TourService from '../tour/tour.service.js';
+const TourService = require('../tour/tour.service');
 
 class PugController {
   constructor(app) {
     this.route = `/api/v1/user`;
     this.cmsRoute = `/api/v1/cms/user`;
     this.tourService = new TourService();
-    this.authControllerMiddeware = new AuthControllerMiddleware();
     this.initializesRoutes(app);
   }
 
@@ -34,4 +32,4 @@ class PugController {
     // app.post(`/tour`, this.tour);
   };
 }
-export default PugController;
+module.exports = PugController;

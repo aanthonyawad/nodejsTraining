@@ -1,6 +1,6 @@
 // LANG FILES
 
-import appLangError from './appLangError.js';
+const appLangError = require('./appLangError.js');
 
 class AppError extends Error {
   constructor(message, statusCode, lang) {
@@ -20,4 +20,4 @@ class AppError extends Error {
   }
 }
 
-export default AppError;
+module.exports = AppError;

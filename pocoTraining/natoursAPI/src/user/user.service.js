@@ -1,18 +1,12 @@
 //IMPORTS
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 // MODEL
-import User from './user.model.js';
+const User = require('./user.model.js');
 //UTIL
-import MongoPaginationPipeline from '../utils/MongoPagination.js';
-import * as process from 'process';
-import EmailBuilder from '../utils/builder/emailBuilder.js';
-//DIRNMAE ALT
-import { dirname } from 'path';
-import path from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const MongoPaginationPipeline = require('../utils/MongoPagination');
+const EmailBuilder = require('../utils/builder/emailBuilder');
 
 class UserService {
   constructor() {}
@@ -143,4 +137,4 @@ class UserService {
     await this.emailBuilder(options).sendEmailWelcome();
   }
 }
-export default UserService;
+module.exports = UserService;

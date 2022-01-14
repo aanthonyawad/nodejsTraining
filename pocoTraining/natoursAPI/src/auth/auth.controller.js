@@ -1,12 +1,12 @@
 //IMPORTS
-import { promisify } from 'util';
-import jwt from 'jsonwebtoken';
+const { promisify } = require('util');
+const jwt = require('jsonwebtoken');
 
 //UTIL
-import AppError from '../utils/error/appError.js';
+const AppError = require('../utils/error/appError');
 
 //Models
-import User from '../user/user.model.js';
+const User = require('../user/user.model');
 
 class AuthControllerMiddleware {
   constructor() {}
@@ -57,4 +57,5 @@ class AuthControllerMiddleware {
     };
   };
 }
-export default AuthControllerMiddleware;
+
+module.exports = AuthControllerMiddleware;

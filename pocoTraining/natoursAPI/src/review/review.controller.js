@@ -1,10 +1,9 @@
 // IMPORTS
-import express from 'express';
-import ReviewService from './review.service.js';
+const ReviewService = require('./review.service');
 
 //UTIL
-import AppError from '../utils/error/appError.js';
-import AuthControllerMiddleware from '../auth/auth.controller.js';
+const AppError = require('../utils/error/appError');
+const AuthControllerMiddleware = require('../auth/auth.controller');
 
 class TourController {
   constructor(app) {
@@ -73,4 +72,4 @@ class TourController {
     app.delete(`${this.route}/:id`, this.deleteReview);
   };
 }
-export default TourController;
+module.exports = TourController;

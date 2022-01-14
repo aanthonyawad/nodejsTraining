@@ -1,31 +1,25 @@
 //IMPORTS
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
-import mongoose from 'mongoose';
-import rateLimit from 'express-rate-limit';
-import helmet from 'helmet';
-import xss from 'xss-clean';
-import sanitizer from 'express-mongo-sanitize';
-import hpp from 'hpp';
-import pug from 'pug';
+const path = require('path');
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const sanitizer = require('express-mongo-sanitize');
+const hpp = require('hpp');
+const pug = require('pug');
 
 //CONTROLLERS
-import TourController from './tour/tour.controller.js';
-import UserController from './user/user.controller.js';
-import ReviewController from './review/review.controller.js';
-import PugController from './pug/pug.controller.js';
-import BookingController from './booking/booking.controller.js';
-
-//DIRNMAE ALT
-import { dirname } from 'path';
-import path from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const TourController = require('./tour/tour.controller');
+const UserController = require('./user/user.controller');
+const ReviewController = require('./review/review.controller');
+const PugController = require('./pug/pug.controller');
 
 //UTILS
-import AppError from './utils/error/appError.js';
+const AppError = require('./utils/error/appError.js');
 
 class Middleware {
   constructor(app) {
@@ -75,7 +69,6 @@ class Middleware {
 
   initControllers(app) {
     new PugController(app);
-    new BookingController(app);
     new TourController(app);
     new UserController(app);
     new ReviewController(app);
@@ -91,7 +84,8 @@ class Middleware {
     app.use((err, req, res, next) => {
       if (process.env.NODE_ENV === 'development') {
         return this.sendErrorDev(err, res);
-      } else if (process.env.NODE_ENV === 'production') {
+      }
+      if (process.env.NODE_ENV === 'production') {
         return this.sendErrorProd(err, res);
       }
     });
@@ -107,6 +101,7 @@ class Middleware {
       data: err.data,
     });
   }
+
   sendErrorDev(err, res) {
     const statusCode = err.statusCode || 500;
     res.status(statusCode).json({
@@ -131,4 +126,4 @@ class Middleware {
     app.use(express.static(path.join(__dirname, 'public')));
   }
 }
-export default Middleware;
+module.exports = Middleware;

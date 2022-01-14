@@ -31,4 +31,4 @@ class FactoryService {
     }
   };
 }
-export default FactoryService;
+module.exports = FactoryService;

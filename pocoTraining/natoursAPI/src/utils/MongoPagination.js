@@ -49,4 +49,4 @@ class MongoPaginationPipeline {
     return this.pipeline;
   };
 }
-export default MongoPaginationPipeline;
+module.exports = MongoPaginationPipeline;

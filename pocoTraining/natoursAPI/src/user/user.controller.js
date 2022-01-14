@@ -1,16 +1,15 @@
 // IMPORTS
-import express from 'express';
-import multer from 'multer';
-import sharp from 'sharp';
+const multer = require('multer');
+const sharp = require('sharp');
 //UTIL
-import AppError from '../utils/error/appError.js';
+const AppError = require('../utils/error/appError');
 
 // CONTROLLERS
-import AuthControllerMiddleware from '../auth/auth.controller.js';
+const AuthControllerMiddleware = require('../auth/auth.controller');
 
 // SERVICES
-import UserService from './user.service.js';
-import FactoryService from '../utils/factory/factory.service.js';
+const UserService = require('./user.service');
+const FactoryService = require('../utils/factory/factory.service');
 
 class UserController {
   constructor(app) {
@@ -161,4 +160,4 @@ class UserController {
     next();
   };
 }
-export default UserController;
+module.exports = UserController;

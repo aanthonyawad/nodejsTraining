@@ -1,11 +1,11 @@
 //IMPORTS
-import dotenv from 'dotenv';
-import express from 'express';
+const dotenv = require('dotenv');
+const express = require('express');
 
 // VALIDATE ENV
-import validateEnv from './utils/validateEnv.js';
+const { validateEnv } = require('./utils/validateEnv');
 //MIDDLEWARE
-import Middleware from './middleware.js';
+const Middleware = require('./middleware');
 
 dotenv.config({ path: '.env' });
 

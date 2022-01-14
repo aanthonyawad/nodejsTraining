@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   notFound: {
     en: {
       message: 'en language error',

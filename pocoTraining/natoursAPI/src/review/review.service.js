@@ -1,7 +1,7 @@
 // MODEL
-import Review from './review.model.js';
+const Review = require('./review.model');
 //UTIL
-import MongoPaginationPipeline from '../utils/MongoPagination.js';
+const MongoPaginationPipeline = require('../utils/MongoPagination');
 class ReviewService {
   constructor() {
     this.pipeline = new MongoPaginationPipeline();
@@ -79,4 +79,5 @@ class ReviewService {
     return review;
   };
 }
-export default ReviewService;
+
+module.exports = ReviewService;
