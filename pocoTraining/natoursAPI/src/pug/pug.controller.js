@@ -15,7 +15,7 @@ class PugController {
     try {
       console.log(req.lang);
       const tours = await this.tourService.getAllTours();
-      return res.status(200).render('overview', {
+      return res.status(200).render('base', {
         title: 'The Foresr Hiker',
         tours,
       });
