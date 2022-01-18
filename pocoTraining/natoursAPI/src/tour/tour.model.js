@@ -77,7 +77,7 @@ const tourSchema = new Schema(
         ref: 'User',
       },
     ],
-
+    image: String,
     active: Boolean,
     deleted: Boolean,
     createdDate: Date,

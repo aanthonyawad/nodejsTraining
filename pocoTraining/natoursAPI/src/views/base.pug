@@ -1,17 +1,19 @@
 doctype html
 html
-    head
+    block head
         meta(charset='UTF-8')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         link(rel='stylesheet' href='css/style.css')
         link(rel='shortcut icon' type='img/png' href='img/favicon.png')
-        link(rel='stylesheet' href='https://fonts.googleapis.com/css/familyLato:300,300i,700')
+        link(rel='preconnect' href='https://fonts.googleapis.com')
+        link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet' crossorigin)
         title Natours | Exciting tours for adventurous people
 
     body
         //- Header
         include _header
-        //-Content
-        h1 this is a placecholder
+        //- Header
+        block content
+            h1 content
         //-Footer
-        include _header
+        include _footer

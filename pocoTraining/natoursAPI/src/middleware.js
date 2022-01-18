@@ -19,7 +19,7 @@ const ReviewController = require('./review/review.controller');
 const PugController = require('./pug/pug.controller');
 
 //UTILS
-const AppError = require('./utils/error/appError.js');
+const AppError = require('./utils/error/appError');
 
 class Middleware {
   constructor(app) {
@@ -41,7 +41,13 @@ class Middleware {
     //DATA Sanitization against XSS
     app.use(xss());
     app.use(hpp());
-    app.use(cors());
+    app.use(
+      cors([
+        'http:localhost://3000',
+        'https://fonts.googleapis.com',
+        'https://api.mapbox.com',
+      ])
+    );
     app.use(cookieParser());
 
     //DATA NEEDED BEFORE EVERY REQUEST

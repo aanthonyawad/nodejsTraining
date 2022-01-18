@@ -116,7 +116,7 @@ class UserController {
   };
 
   initializesRoutes = async (app) => {
-    app.post(`${this.route}/login`, this.upload, this.resizePhoto, this.login);
+    app.post(`${this.route}/login`, this.login);
     app.post(`${this.route}/forgotpassword`, this.forgotPassword);
     app.post(`${this.route}/resetPassword/:token`, this.resetPassword);
     app.post(`${this.route}/signup`, this.signup);

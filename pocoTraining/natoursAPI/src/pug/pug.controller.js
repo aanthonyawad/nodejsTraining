@@ -13,11 +13,25 @@ class PugController {
 
   overeview = async (req, res, next) => {
     try {
-      console.log(req.lang);
       const tours = await this.tourService.getAllTours();
-      return res.status(200).render('base', {
-        title: 'The Foresr Hiker',
+      console.log(tours);
+      return res.status(200).render('overview', {
+        title: 'The Forest Hiker',
         tours,
+      });
+    } catch (err) {
+      //IMPLEMENT LANGUAGE ERROR HANDLING
+      console.log(err);
+      const appError = new AppError(err.message, 400, req.lang);
+      return next(appError);
+    }
+  };
+  findOneTour = async (req, res, next) => {
+    try {
+      const tour = await this.tourService.findOneTour(req.params.id);
+      return res.status(200).render('tour', {
+        title: 'The Forest Hiker',
+        tour,
       });
     } catch (err) {
       //IMPLEMENT LANGUAGE ERROR HANDLING
@@ -29,7 +43,7 @@ class PugController {
 
   initializesRoutes = (app) => {
     app.get(`/`, this.overeview);
-    // app.post(`/tour`, this.tour);
+    app.get(`/tour/:id`, this.findOneTour);
   };
 }
 module.exports = PugController;

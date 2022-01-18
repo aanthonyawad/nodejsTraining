@@ -3,13 +3,12 @@ extends base
 block content
     main.main
         .card-container
-
             each tour in tours
                 .card
                     .card__header
                         .card__picture
                             .card__picture-overlay &nbsp;
-                            img.card__picture-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+                            img.card__picture-img(src=`public/img/tours/${tour.image}`, alt=`${tour.name}`)
                         h3.heading-tertirary
                             span= tour.name
 
@@ -24,7 +23,6 @@ block content
                             span stops on minnesta
                         .card__data
                             span can hold up to 10  people`
-
                     .card__footer
                         p
                             span.card__footer-value= `$${tour.price}`

@@ -9,6 +9,8 @@ const AppError = require('../utils/error/appError.js');
 const AuthControllerMiddleware = require('../auth/auth.controller.js');
 
 const FactoryService = require('../utils/factory/factory.service.js');
+const multer = require('multer');
+const sharp = require('sharp');
 
 class TourController {
   constructor(app) {
@@ -97,11 +99,29 @@ class TourController {
       return next(appError);
     }
   };
+
   getDistances = async (req, res, next) => {
     try {
       //TODO create result obj
       const distances = await this.service.getDistances(req.params);
       return res.json(distances);
+    } catch (err) {
+      //IMPLEMENT LANGUAGE ERROR HANDLING
+      console.log(err);
+      const appError = new AppError(err.message, 401, req.lang);
+      return next(appError);
+    }
+  };
+
+  uploadTourPhoto = async (req, res, next) => {
+    try {
+      //TODO create result obj
+      console.log(req.body);
+      const tour = await this.service.uploadTourPhoto(
+        req.file.filename,
+        req.params.id
+      );
+      return res.send(tour);
     } catch (err) {
       //IMPLEMENT LANGUAGE ERROR HANDLING
       console.log(err);
@@ -127,6 +147,48 @@ class TourController {
       this.getToursWithin
     );
     app.get(`${this.route}/:latlng/unit/:unit`, this.getDistances);
+    app.patch(
+      `${this.route}/upload-photo/:id`,
+      this.upload,
+      this.resizePhoto,
+      this.uploadTourPhoto
+    );
+  };
+
+  multerStorage = () => ({
+    destination: (req, file, cb) => {
+      cb(null, 'public/img/tours');
+    },
+    filename: (req, file, cb) => {
+      const ext = file.mimetype.split('/')[1];
+      console.log(ext);
+      // id = req.user._id;
+      cb(null, `user-id-${Date.now()}.${ext}`);
+    },
+  });
+
+  multerImageFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+      cb(null, true);
+    } else {
+      cb(new Error('fail'), false);
+    }
+  };
+
+  upload = multer({
+    storage: multer.memoryStorage(),
+    filter: this.multerImageFilter,
+  }).single('photo');
+
+  resizePhoto = async (req, res, next) => {
+    if (!req.file) next();
+    const ext = req.file.mimetype.split('/')[1];
+    req.file.filename = `tour-id-${Date.now()}.${ext}`;
+    await sharp(req.file.buffer)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/tours/${req.file.filename}`);
+    next();
   };
 }
 module.exports = TourController;

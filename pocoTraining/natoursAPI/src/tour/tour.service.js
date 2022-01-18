@@ -24,6 +24,17 @@ class TourService {
     return tour;
   };
 
+  uploadTourPhoto = async (image, id) => {
+    let tour = await this.findOneTour(id);
+    console.log(tour);
+    tour.image = image;
+    await tour.save({
+      new: true,
+      runValidators: true,
+    });
+    return tour;
+  };
+
   updateTour = async (data, id) => {
     data._id = id;
     let tour = this.addData(data);
