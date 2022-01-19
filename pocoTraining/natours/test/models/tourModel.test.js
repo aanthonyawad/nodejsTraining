@@ -1,10 +1,11 @@
-const express = require('express'); // (npm install --save express)
-const request = require('supertest');
 const mongoose = require('mongoose');
-const { expect } = require('chai');
-const assert = require('assert');
+const { expect, assert } = require('chai');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
-//CONTROLLERS
+chai.use(chaiAsPromised);
+
+//Model
 const Tour = require('../../models/tourModel');
 
 before(function (done) {
@@ -54,12 +55,53 @@ describe('Our Tour Model Functions', () => {
     const tour = await Tour.findOne({ name: tourName });
     expect(tour.name).to.equal(tourName);
   });
+
   it('cannot create a tour with the same name', async function () {
     const tour = feedTour();
     tour.name = tourName;
-    expect(async () => {
+    const badFn = async () => {
       await tour.save();
-    }).to.throw;
+    };
+    await expect(badFn()).to.be.rejectedWith(Error);
   });
-  //.... more test validators
+
+  it('cannot create a tour with name less than 10 charac', async function () {
+    const tour = feedTour();
+    tour.name = 'less10';
+    const badFn = async () => {
+      await tour.save();
+    };
+    await expect(badFn()).to.be.rejectedWith(Error);
+  });
+
+  it('cannot create a tour name that has max charac 40', async function () {
+    const tour = feedTour();
+    tour.name =
+      'cannotCreateTourWithMaximumCharacters40cannotCreateTourWithMaximumCharacters40cannotCreateTourWithMaximumCharacters40cannotCreateTourWithMaximumCharacters40' +
+      'cannotCreateTourWithMaximumCharacters40cannotCreateTourWithMaximumCharacters40cannotCreateTourWithMaximumCharacters40';
+    const badFn = async () => {
+      await tour.save();
+    };
+    await expect(badFn()).to.be.rejectedWith(Error);
+  });
+
+  it('cannot create a tour if min rating average is less than 1', async function () {
+    const tour = feedTour();
+    tour.name = `${tourName}diff`;
+    tour.ratingsAverage = 0;
+    const badFn = async () => {
+      await tour.save();
+    };
+    await expect(badFn()).to.be.rejectedWith(Error);
+  });
+
+  it('cannot create a tour if min rating average is bigger than 5', async function () {
+    const tour = feedTour();
+    tour.name = `${tourName}diff`;
+    tour.ratingsAverage = 6;
+    const badFn = async () => {
+      await tour.save();
+    };
+    await expect(badFn()).to.be.rejectedWith(Error);
+  });
 });
