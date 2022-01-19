@@ -1,4 +1,4 @@
-//MPORTS
+//IMPORTS
 const express = require('express'); // (npm install --save express)
 const request = require('supertest');
 const mongoose = require('mongoose');
@@ -13,29 +13,26 @@ function createApp() {
 
   return app;
 }
+// Called once before any of the tests in this block begin.
+let app;
+before(function (done) {
+  app = createApp();
+  app.listen(function (err) {
+    if (err) {
+      return done(err);
+    }
+    mongoose
+      .connect('mongodb://localhost:27017/natours', {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+      })
+      .then(() => console.log('DB connection successful!'));
 
-describe('Our server', function () {
-  let app;
-
-  // Called once before any of the tests in this block begin.
-  before(function (done) {
-    app = createApp();
-    app.listen(function (err) {
-      if (err) {
-        return done(err);
-      }
-      mongoose
-        .connect('mongodb://localhost:27017/natours', {
-          useNewUrlParser: true,
-          useCreateIndex: true,
-          useFindAndModify: false,
-        })
-        .then(() => console.log('DB connection successful!'));
-
-      done();
-    });
+    done();
   });
-
+});
+describe('Our server', function () {
   it('Call GET TOURs API for integration testing', function (done) {
     request(app)
       .get('/api/v1/tours/')

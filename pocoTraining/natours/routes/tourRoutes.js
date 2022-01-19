@@ -7,8 +7,8 @@ const router = express.Router();
 
 // router.param('id', tourController.checkID);
 
-// POST /tour/234fad4/reviews
-// GET /tour/234fad4/reviews
+// POST /controllers/234fad4/reviews
+// GET /controllers/234fad4/reviews
 
 router.use('/:tourId/reviews', reviewRouter);
 
@@ -16,7 +16,7 @@ router
   .route('/top-5-cheap')
   .get(tourController.aliasTopTours, tourController.getAllTours);
 
-router.route('/tour-stats').get(tourController.getTourStats);
+router.route('/controllers-stats').get(tourController.getTourStats);
 router
   .route('/monthly-plan/:year')
   .get(
