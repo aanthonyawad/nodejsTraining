@@ -10,7 +10,11 @@
     "debug": "ndb server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "test": "npx jasmine"
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true,
+    "preset": "@shelf/jest-mongodb"
   },
   "author": "Jonas Schmedtmann",
   "license": "ISC",
@@ -42,6 +46,7 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^2.2.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
@@ -54,7 +59,9 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "jasmine": "^4.0.2",
+    "jest": "^27.4.7",
     "mocha": "^9.1.4",
+    "mockingoose": "^2.15.2",
     "nodemon": "^2.0.15",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.17.0",
