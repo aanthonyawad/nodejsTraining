@@ -141,9 +141,8 @@ describe('TDD Tour Model', () => {
   });
 
   afterAll(async () => {
-    tours.deleteOne({ name: 'New Test Tour' });
+    await tours.deleteOne({ name: 'New Test Tour' });
     await connection.close();
-    await db.close();
   });
 
   it('should insert a doc into collection', async () => {
@@ -154,18 +153,20 @@ describe('TDD Tour Model', () => {
   });
 
   it('should update', async () => {
-    const mockTour = createMock();
-    await tours.insertOne(mockTour);
-    const insertedTour = await tours.updateOne(
+    // const tour = await tours.findOne();
+    await tours.updateOne(
       { name: 'New Test Tour' },
       {
-        duration: 2,
-        maxGroupSize: 5,
-        difficulty: 'medium',
+        $set: {
+          duration: 2,
+          maxGroupSize: 5,
+          difficulty: 'medium',
+        },
       }
     );
-    expect(insertedTour.maxGroupSize).toEqual(5);
-    expect(insertedTour.duration).toEqual(2);
-    expect(insertedTour.difficulty).toEqual('medium');
+    const updatedTour = await tours.findOne({ name: 'New Test Tour' });
+    expect(updatedTour.maxGroupSize).toEqual(5);
+    expect(updatedTour.duration).toEqual(2);
+    expect(updatedTour.difficulty).toEqual('medium');
   });
 });

@@ -177,3 +177,52 @@
 //   //     });
 //   // });
 // });
+
+/*JEST*/
+const express = require('express');
+const request = require('supertest');
+const mongoose = require('mongoose');
+const tourRouter = require('../../routes/tourRoutes');
+const userRoutes = require('../../routes/userRoutes');
+
+let app;
+function createApp() {
+  const app = express();
+  app.use('/api/v1/tours', tourRouter);
+  app.use('/api/v1/users', userRoutes);
+  return app;
+}
+
+describe('Should create app ', () => {
+  before('initialize app', function (done) {
+    app = createApp();
+    app.listen(function (err) {
+      if (err) {
+        return done(err);
+      }
+    });
+    mongoose
+      .connect('mongodb://localhost:27017/natours', {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+      })
+      .then(() => console.log('DB connection successful!'));
+  });
+
+  describe('should login', () => {
+    const data = {};
+    beforeAll('Post /login', async () => {
+      const response = await request(app).post('/login').send({
+        username: 'anthony123@mailsac.com',
+        password: 'pass1234',
+      });
+      console.log(response);
+    });
+    it('validate login', () => {
+      expect(true).toBe(true);
+    });
+  });
+
+  afterAll('shutdown app', async () => {});
+});
