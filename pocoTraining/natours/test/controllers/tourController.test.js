@@ -179,50 +179,32 @@
 // });
 
 /*JEST*/
-const express = require('express');
 const request = require('supertest');
-const mongoose = require('mongoose');
-const tourRouter = require('../../routes/tourRoutes');
-const userRoutes = require('../../routes/userRoutes');
-
-let app;
-function createApp() {
-  const app = express();
-  app.use('/api/v1/tours', tourRouter);
-  app.use('/api/v1/users', userRoutes);
-  return app;
-}
+const server = require('../../server');
 
 describe('Should create app ', () => {
-  before('initialize app', function (done) {
-    app = createApp();
-    app.listen(function (err) {
-      if (err) {
-        return done(err);
-      }
-    });
-    mongoose
-      .connect('mongodb://localhost:27017/natours', {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-      })
-      .then(() => console.log('DB connection successful!'));
+  let jwt;
+  beforeAll(() => {
+    process.env.JWT_SECRET = 'natours_secret_jwt';
+    process.env.DATABASE = 'mongodb://localhost:27017/natours';
   });
 
   describe('should login', () => {
-    const data = {};
-    beforeAll('Post /login', async () => {
-      const response = await request(app).post('/login').send({
-        username: 'anthony123@mailsac.com',
-        password: 'pass1234',
-      });
-      console.log(response);
-    });
-    it('validate login', () => {
-      expect(true).toBe(true);
+    it('validate login', async () => {
+      const response = await request(server)
+        .post(`/api/v1/users/login/`)
+        .send({ email: 'anthony123@mailsac.com', password: 'pass1234' });
+      expect(response.body.status).toBe('success');
+      expect(response.body.token).toBeDefined();
+      jwt = response.token;
     });
   });
 
-  afterAll('shutdown app', async () => {});
+  describe('Tour Functions', () => {
+    it('GET /api/v1/tours', async () => {
+      const response = await request(server).get(`/api/v1/tours/`);
+      expect(response.body.status).toBe('success');
+      expect(response.body.data.data[0].id).toBe('5c88fa8cf4afda39709c2955');
+    });
+  });
 });
