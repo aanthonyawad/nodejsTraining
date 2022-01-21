@@ -2,7 +2,7 @@
 const request = require('supertest');
 const server = require('../../server');
 
-jest.setTimeout(10 * 1000);
+jest.setTimeout(20 * 1000);
 
 let jwt;
 let tourId;
