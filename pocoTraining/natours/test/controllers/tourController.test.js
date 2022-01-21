@@ -3,6 +3,7 @@ const request = require('supertest');
 const server = require('../../server');
 
 jest.setTimeout(10 * 1000);
+
 let jwt;
 let tourId;
 describe('Should create app ', () => {
@@ -28,31 +29,43 @@ describe('Should create app ', () => {
         expect(response.body.status).toBe('success');
       });
 
-      it('POST /api/v1/tours', async function () {
-        const response = await request(server)
-          .post(`/api/v1/tours/`)
-          .set(
-            //admin Bearer token
-            'Authorization',
-            `Bearer ${jwt}`
-          )
-          .send({
-            name: 'New Test Tour Integration',
-            duration: 1,
-            maxGroupSize: 1,
-            difficulty: 'easy',
-            price: 200,
-            summary: 'Test tour',
-            imageCover: 'tour-3-cover.jpg',
-            startLocation: {
-              description: 'Miami, USA',
-              type: 'Point',
-              coordinates: [-80.185942, 25.774772],
-              address: '301 Biscayne Blvd, Miami, FL 33132, USA',
-            },
+      describe('insert a tour', () => {
+        it('POST /api/v1/tours', async function () {
+          const response = await request(server)
+            .post(`/api/v1/tours/`)
+            .set(
+              //admin Bearer token
+              'Authorization',
+              `Bearer ${jwt}`
+            )
+            .send({
+              name: 'New Test Tour Integration',
+              duration: 1,
+              maxGroupSize: 1,
+              difficulty: 'easy',
+              price: 200,
+              summary: 'Test tour',
+              imageCover: 'tour-3-cover.jpg',
+              startLocation: {
+                description: 'Miami, USA',
+                type: 'Point',
+                coordinates: [-80.185942, 25.774772],
+                address: '301 Biscayne Blvd, Miami, FL 33132, USA',
+              },
+            });
+          expect(response.body.status).toBe('success');
+          tourId = response.body.data.data.id;
+        });
+
+        describe('find the newly inserted tour by Id', () => {
+          it('GET /api/v1/tours/id', async function () {
+            const response = await request(server).get(
+              `/api/v1/tours/${tourId}`
+            );
+            expect(response.statusCode).toBe(200);
+            expect(response.body.status).toBe('success');
           });
-        expect(response.body.status).toBe('success');
-        tourId = response.body.data.data.id;
+        });
       });
 
       afterAll(async function () {
