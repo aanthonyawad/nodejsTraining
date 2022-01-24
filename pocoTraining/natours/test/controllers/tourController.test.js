@@ -18,6 +18,7 @@ describe('Should create app ', () => {
         .post(`/api/v1/users/login/`)
         .send({ email: 'anthony123@mailsac.com', password: 'pass1234' });
       expect(response.body.status).toBe('success');
+      expect(response.statusCode).toBe(200);
       expect(response.body.token).toBeDefined();
       jwt = response.body.token;
     });
@@ -26,22 +27,26 @@ describe('Should create app ', () => {
       it('GET /api/v1/tours', async function () {
         const response = await request(server).get(`/api/v1/tours/`);
         expect(response.body.status).toBe('success');
+        expect(response.statusCode).toBe(200);
       });
       it('GET /api/v1/tours/top-5-cheap', async function () {
         const response = await request(server).get(`/api/v1/tours/top-5-cheap`);
         expect(response.body.status).toBe('success');
+        expect(response.statusCode).toBe(200);
       });
       it('GET /api/v1/tours/controllers-stats', async function () {
         const response = await request(server).get(
           `/api/v1/tours/controllers-stats`
         );
         expect(response.body.status).toBe('success');
+        expect(response.statusCode).toBe(200);
       });
       it('GET /api/v1/tours/distances/34.111745,-118.113491/unit/mi', async function () {
         const response = await request(server).get(
           `/api/v1/tours/distances/34.111745,-118.113491/unit/mi`
         );
         expect(response.body.status).toBe('success');
+        expect(response.statusCode).toBe(200);
       });
       it('GET /api/v1/tours/monthly-plan/:year', async function () {
         const response = await request(server)
@@ -52,6 +57,7 @@ describe('Should create app ', () => {
             `Bearer ${jwt}`
           );
         expect(response.body.status).toBe('success');
+        expect(response.statusCode).toBe(200);
       });
 
       describe('insert a tour', () => {
@@ -79,6 +85,8 @@ describe('Should create app ', () => {
               },
             });
           expect(response.body.status).toBe('success');
+          expect(response.statusCode).toBe(201);
+          expect(response.body.data.data.id).toBeDefined();
           tourId = response.body.data.data.id;
         });
 
