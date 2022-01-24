@@ -48,6 +48,7 @@ describe('Should create app ', () => {
         expect(response.body.status).toBe('success');
         expect(response.statusCode).toBe(200);
       });
+
       it('GET /api/v1/tours/monthly-plan/:year', async function () {
         const response = await request(server)
           .get(`/api/v1/tours/monthly-plan/2021`)
