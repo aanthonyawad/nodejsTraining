@@ -10,7 +10,7 @@
     "debug": "ndb server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "jest": {
     "verbose": true,

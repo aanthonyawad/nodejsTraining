@@ -148,6 +148,7 @@ describe('TDD Tour Model', () => {
   it('should insert a doc into collection', async () => {
     const mockTour = createMock();
     await tours.insertOne(mockTour);
+
     const insertedTour = await tours.findOne({ name: 'New Test Tour' });
     expect(insertedTour.name).toEqual('New Test Tour');
   });

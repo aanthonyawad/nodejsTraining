@@ -2,12 +2,11 @@
 const request = require('supertest');
 const server = require('../../server');
 
-jest.setTimeout(20 * 1000);
-
 let jwt;
 let tourId;
 describe('Should create app ', () => {
   beforeAll(() => {
+    process.env.PORT = 4000;
     process.env.JWT_SECRET = 'natours_secret_jwt';
     process.env.DATABASE = 'mongodb://localhost:27017/natours';
   });
@@ -26,6 +25,32 @@ describe('Should create app ', () => {
     describe('Tour Functions', () => {
       it('GET /api/v1/tours', async function () {
         const response = await request(server).get(`/api/v1/tours/`);
+        expect(response.body.status).toBe('success');
+      });
+      it('GET /api/v1/tours/top-5-cheap', async function () {
+        const response = await request(server).get(`/api/v1/tours/top-5-cheap`);
+        expect(response.body.status).toBe('success');
+      });
+      it('GET /api/v1/tours/controllers-stats', async function () {
+        const response = await request(server).get(
+          `/api/v1/tours/controllers-stats`
+        );
+        expect(response.body.status).toBe('success');
+      });
+      it('GET /api/v1/tours/distances/34.111745,-118.113491/unit/mi', async function () {
+        const response = await request(server).get(
+          `/api/v1/tours/distances/34.111745,-118.113491/unit/mi`
+        );
+        expect(response.body.status).toBe('success');
+      });
+      it('GET /api/v1/tours/monthly-plan/:year', async function () {
+        const response = await request(server)
+          .get(`/api/v1/tours/monthly-plan/2021`)
+          .set(
+            //admin Bearer token
+            'Authorization',
+            `Bearer ${jwt}`
+          );
         expect(response.body.status).toBe('success');
       });
 
