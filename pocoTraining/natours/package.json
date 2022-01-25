@@ -13,6 +13,7 @@
     "test": "jest --watch"
   },
   "jest": {
+    "testEnvironment": "node",
     "verbose": true,
     "preset": "@shelf/jest-mongodb"
   },
@@ -47,9 +48,6 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^2.2.0",
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
-    "chai-http": "^4.3.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
@@ -58,16 +56,12 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
-    "jasmine": "^4.0.2",
     "jest": "^27.4.7",
-    "mocha": "^9.1.4",
-    "mockingoose": "^2.15.2",
+    "mongodb-memory-server": "^8.2.0",
     "nodemon": "^2.0.15",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.17.0",
     "request": "^2.88.2",
-    "sinon": "^12.0.1",
-    "sinon-chai": "^3.7.0",
     "supertest": "^6.2.1"
   },
   "engines": {
