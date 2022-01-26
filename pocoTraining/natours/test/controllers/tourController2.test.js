@@ -4,14 +4,18 @@ const server = require('../../server');
 
 let jwt;
 let tourId;
-describe('should login', () => {
+describe('tour integration tests', () => {
   beforeAll(async function () {
     // get the token
-    const response = await request(server)
-      .post(`/api/v1/users/login/`)
-      .send({ email: 'anthony123@mailsac.com', password: 'pass1234' });
+    const response = await request(server).post(`/api/v1/users/signup`).send({
+      name: 'Jonas',
+      email: 'anthony1234@mailsac.com',
+      password: 'pass1234',
+      role: 'admin',
+      passwordConfirm: 'pass1234',
+    });
     expect(response.body.status).toBe('success');
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
     expect(response.body.token).toBeDefined();
     jwt = response.body.token;
   });
@@ -91,18 +95,6 @@ describe('should login', () => {
           expect(response.body.status).toBe('success');
         });
       });
-    });
-
-    afterAll(async function () {
-      //delete the newly created testing tour
-      const response = await request(server)
-        .delete(`/api/v1/tours/${tourId}`)
-        .set(
-          //admin Bearer token
-          'Authorization',
-          `Bearer ${jwt}`
-        );
-      expect(response.statusCode).toBe(204);
     });
   });
 });
