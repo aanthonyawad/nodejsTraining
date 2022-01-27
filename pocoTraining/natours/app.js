@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const cors = require('cors');
 
+const swaggerUi = require('swagger-ui-express');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
@@ -19,6 +20,15 @@ const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const bookingController = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
+
+/*SWAGGER*/
+const swaggerDocument = require('./swagger.json');
+
+const swaggerOptions = {
+  swaggerOptions: {
+    validatorUrl: null,
+  },
+};
 
 // Start express app
 const app = express();
@@ -55,7 +65,7 @@ if (process.env.NODE_ENV === 'development') {
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!'
+  message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/api', limiter);
 
@@ -64,6 +74,12 @@ app.post(
   '/webhook-checkout',
   bodyParser.raw({ type: 'application/json' }),
   bookingController.webhookCheckout
+);
+
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, swaggerOptions)
 );
 
 // Body parser, reading data from body into req.body
@@ -86,8 +102,8 @@ app.use(
       'ratingsAverage',
       'maxGroupSize',
       'difficulty',
-      'price'
-    ]
+      'price',
+    ],
   })
 );
 
