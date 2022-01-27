@@ -12,7 +12,6 @@
   ],
   "paths": {
     "/api/v1/tours/{id}": {
-
       "parameters": [
         {
           "name": "id",
@@ -263,6 +262,48 @@
             "description": "404 Not Found",
             "examples": {
               "application/json":"{\n    \"status\": \"fail\",\n    \"message\": \"Please provide latitutr and longitude in the format lat,lng.\"\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tours/{id}": {
+      "parameters": [
+        {
+          "name": "authorization",
+          "required": true,
+          "in": "header",
+          "type": "string",
+          "description": "JWT Bearer token"
+        },
+        {
+          "name": "id",
+          "required": true,
+          "in": "path",
+          "type": "string",
+          "description": "Tour Mongo ObjectID"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "delete Tour by ObjectID",
+        "summary": "delete Tour by ObjectID",
+        "description": "delete Tour by ObjectID",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "204 response",
+            "examples": {
+              }
+          },
+          "404": {
+            "description": "404 Not Found",
+            "examples": {
+              "application/json":"{\n                \"status\": \"fail\",\n                \"message\": \"No document found with that ID\"\n              }"
             }
           }
         }
