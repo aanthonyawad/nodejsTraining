@@ -1,133 +1,40 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "Natours",
+    "title": "Natours Swagger",
+    "description": "This the natours swagger documentation you can find it description of the APIs ",
+    "contact": {
+      "email": "dev.anthony.awad@gmail.com"
+    },
     "version": "1.0.0"
   },
-  "consumes": [
-    "application/json"
+  "servers": [
   ],
-  "produces": [
-    "application/json"
+  "tags": [
+    {
+      "name": "Secure APIs",
+      "description": "Secure APis",
+      "externalDocs": {
+        "description": "The secured API that require JWT authentications",
+        "url": "https://jwt.io/"
+      }
+    },
+    {
+      "name": "Open APIs",
+      "description": "The Open Tour APIs"
+    },
+    {
+      "name": "Authorization",
+      "description": "The Create and login APIs"
+    }
   ],
   "paths": {
-    "/api/v1/tours/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "required": true,
-          "in": "path",
-          "type": "string",
-          "description": "Tour Mongo ObjectID"
-        }
-      ],
-      "get": {
-        "tags": [
-        "Open API"
-      ],
-        "operationId": "get Tour by ObjectID",
-        "summary": "get Tour by ObjectID",
-        "description": "get Tour by ObjectID",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "examples": {
-              "application/json": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"data\": {\n            \"startLocation\": {\n                \"type\": \"Point\",\n                \"description\": \"Las Vegas, USA\",\n                \"coordinates\": [\n                    -115.172652,\n                    36.110904\n                ],\n                \"address\": \"3663 S Las Vegas Blvd, Las Vegas, NV 89109, USA\"\n            },\n            \"ratingsAverage\": 4.7,\n            \"ratingsQuantity\": 7,\n            \"images\": [\n                \"tour-5-1.jpg\",\n                \"tour-5-2.jpg\",\n                \"tour-5-3.jpg\"\n            ],\n            \"startDates\": [\n                \"2021-08-05T09:00:00.000Z\",\n                \"2022-03-20T10:00:00.000Z\",\n                \"2022-08-12T09:00:00.000Z\"\n            ],\n            \"secretTour\": false,\n            \"guides\": [\n                {\n                    \"photo\": \"user-11.jpg\",\n                    \"role\": \"lead-guide\",\n                    \"_id\": \"5c8a21f22f8fb814b56fa18a\",\n                    \"name\": \"Aarav Lynn\",\n                    \"email\": \"aarav@example.com\"\n                },\n                {\n                    \"photo\": \"user-13.jpg\",\n                    \"role\": \"guide\",\n                    \"_id\": \"5c8a23412f8fb814b56fa18c\",\n                    \"name\": \"Ben Hadley\",\n                    \"email\": \"ben@example.com\"\n                },\n                {\n                    \"photo\": \"user-7.jpg\",\n                    \"role\": \"guide\",\n                    \"_id\": \"5c8a201e2f8fb814b56fa186\",\n                    \"name\": \"Kate Morrison\",\n                    \"email\": \"kate@example.com\"\n                }\n            ],\n            \"_id\": \"5c88fa8cf4afda39709c2961\",\n            \"name\": \"The Park Camper\",\n            \"duration\": 10,\n            \"maxGroupSize\": 15,\n            \"difficulty\": \"medium\",\n            \"price\": 1497,\n            \"summary\": \"Breathing in Nature in America's most spectacular National Parks\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!\",\n            \"imageCover\": \"tour-5-cover.jpg\",\n            \"locations\": [\n                {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        -112.987418,\n                        37.198125\n                    ],\n                    \"_id\": \"5c88fa8cf4afda39709c2965\",\n                    \"description\": \"Zion Canyon National Park\",\n                    \"day\": 1\n                },\n                {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        -111.376161,\n                        36.86438\n                    ],\n                    \"_id\": \"5c88fa8cf4afda39709c2964\",\n                    \"description\": \"Antelope Canyon\",\n                    \"day\": 4\n                },\n                {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        -112.115763,\n                        36.058973\n                    ],\n                    \"_id\": \"5c88fa8cf4afda39709c2963\",\n                    \"description\": \"Grand Canyon National Park\",\n                    \"day\": 5\n                },\n                {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        -116.107963,\n                        34.011646\n                    ],\n                    \"_id\": \"5c88fa8cf4afda39709c2962\",\n                    \"description\": \"Joshua Tree National Park\",\n                    \"day\": 9\n                }\n            ],\n            \"slug\": \"the-park-camper\",\n            \"__v\": 0,\n            \"durationWeeks\": 1.4285714285714286,\n            \"reviews\": [\n                {\n                    \"_id\": \"5c8a384114eb5c17645c9117\",\n                    \"review\": \"Neque amet vel integer placerat ex pretium elementum vitae quis ullamcorper nullam nunc habitant cursus justo!!!\",\n                    \"rating\": 5,\n                    \"user\": {\n                        \"photo\": \"user-4.jpg\",\n                        \"_id\": \"5c8a1ec62f8fb814b56fa183\",\n                        \"name\": \"Ayla Cornell\"\n                    },\n                    \"tour\": \"5c88fa8cf4afda39709c2961\",\n                    \"createdAt\": \"2022-01-19T14:01:34.743Z\",\n                    \"__v\": 0,\n                    \"id\": \"5c8a384114eb5c17645c9117\"\n                },\n                {\n                    \"_id\": \"5c8a3aaa14eb5c17645c9127\",\n                    \"review\": \"Eleifend suspendisse ultricies platea primis ut ornare purus vel taciti faucibus justo nunc\",\n                    \"rating\": 4,\n                    \"user\": {\n                        \"photo\": \"user-14.jpg\",\n                        \"_id\": \"5c8a23c82f8fb814b56fa18d\",\n                        \"name\": \"Laura Wilson\"\n                    },\n                    \"tour\": \"5c88fa8cf4afda39709c2961\",\n                    \"createdAt\": \"2022-01-19T14:01:34.747Z\",\n                    \"__v\": 0,\n                    \"id\": \"5c8a3aaa14eb5c17645c9127\"\n                },\n                {\n                    \"_id\": \"5c8a3bc414eb5c17645c9131\",\n                    \"review\": \"Conubia semper efficitur rhoncus suspendisse taciti lectus ex sapien dolor molestie fusce class.\",\n                    \"rating\": 5,\n                    \"user\": {\n                        \"photo\": \"user-16.jpg\",\n                        \"_id\": \"5c8a24282f8fb814b56fa18f\",\n                        \"name\": \"Isabel Kirkland\"\n                    },\n                    \"tour\": \"5c88fa8cf4afda39709c2961\",\n                    \"createdAt\": \"2022-01-19T14:01:34.749Z\",\n                    \"__v\": 0,\n                    \"id\": \"5c8a3bc414eb5c17645c9131\"\n                },\n                {\n                    \"_id\": \"5c8a37cb14eb5c17645c9112\",\n                    \"review\": \"Auctor euismod interdum augue tristique senectus nascetur cras justo eleifend mattis libero id adipiscing amet placerat\",\n                    \"rating\": 5,\n                    \"user\": {\n                        \"photo\": \"user-17.jpg\",\n                        \"_id\": \"5c8a24402f8fb814b56fa190\",\n                        \"name\": \"Alexander Jones\"\n                    },\n                    \"tour\": \"5c88fa8cf4afda39709c2961\",\n                    \"createdAt\": \"2022-01-19T14:01:34.742Z\",\n                    \"__v\": 0,\n                    \"id\": \"5c8a37cb14eb5c17645c9112\"\n                },\n                {\n                    \"_id\": \"5c8a3c5314eb5c17645c9136\",\n                    \"review\": \"Blandit varius finibus imperdiet tortor hendrerit erat rhoncus dictumst inceptos massa in.\",\n                    \"rating\": 5,\n                    \"user\": {\n                        \"photo\": \"user-18.jpg\",\n                        \"_id\": \"5c8a245f2f8fb814b56fa191\",\n                        \"name\": \"Eduardo Hernandez\"\n                    },\n                    \"tour\": \"5c88fa8cf4afda39709c2961\",\n                    \"createdAt\": \"2022-01-19T14:01:34.750Z\",\n                    \"__v\": 0,\n                    \"id\": \"5c8a3c5314eb5c17645c9136\"\n                },\n                {\n                    \"_id\": \"5c8a3d1e14eb5c17645c913d\",\n                    \"review\": \"Nam ultrices quis leo viverra tristique curae facilisi luctus sapien eleifend fames orci lacinia pulvinar.\",\n                    \"rating\": 4,\n                    \"user\": {\n                        \"photo\": \"user-19.jpg\",\n                        \"_id\": \"5c8a24822f8fb814b56fa192\",\n                        \"name\": \"John Riley\"\n                    },\n                    \"tour\": \"5c88fa8cf4afda39709c2961\",\n                    \"createdAt\": \"2022-01-19T14:01:34.751Z\",\n                    \"__v\": 0,\n                    \"id\": \"5c8a3d1e14eb5c17645c913d\"\n                },\n                {\n                    \"_id\": \"5c8a3de514eb5c17645c9143\",\n                    \"review\": \"Sem risus tempor auctor mattis netus montes tincidunt mollis lacinia natoque adipiscing\",\n                    \"rating\": 5,\n                    \"user\": {\n                        \"photo\": \"user-20.jpg\",\n                        \"_id\": \"5c8a24a02f8fb814b56fa193\",\n                        \"name\": \"Lisa Brown\"\n                    },\n                    \"tour\": \"5c88fa8cf4afda39709c2961\",\n                    \"createdAt\": \"2022-01-19T14:01:34.754Z\",\n                    \"__v\": 0,\n                    \"id\": \"5c8a3de514eb5c17645c9143\"\n                }\n            ],\n            \"id\": \"5c88fa8cf4afda39709c2961\"\n        }\n    }\n}"
-            }
-          },
-          "404": {
-            "description": "404 Not Found",
-            "examples": {
-              "application/json":"{\n                \"status\": \"fail\",\n                \"message\": \"No document found with that ID\"\n              }"
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/tours/": {
-      "parameters": [
-        {
-          "name": "{filteringForNumericValues}",
-          "required": false,
-          "in": "query",
-          "type": "numeric",
-          "description": "Tour filteringForNumericValues[gte] | filteringForNumericValues[lte] | filteringForNumericValues[lt] | filteringForNumericValues[gt] if a string is set it will ignore it "
-        },
-
-        {
-          "name": "filteringForData",
-          "required": false,
-          "in": "query",
-          "type": "string | boolean",
-          "description": "Tour filteringForData"
-        },
-        {
-          "name": "sort",
-          "required": false,
-          "in": "query",
-          "type": "string",
-          "description": "sorting can be done by price | "
-        },
-
-        {
-          "name": "page",
-          "required": false,
-          "in": "query",
-          "type": "string",
-          "description": "start from page"
-        },
-
-        {
-          "name": "limit",
-          "required": false,
-          "in": "query",
-          "type": "string",
-          "description": "limit number of data returned"
-        },
-
-        {
-          "name": "fields",
-          "required": false,
-          "in": "query",
-          "type": "string",
-          "description": "the  fields to be returned from the API "
-        }
-      ],
-      "get": {
-        "tags": [
-          "Open API"
-        ],
-        "operationId": "Get all Tours paginated",
-        "summary": "Get all Tours paginated",
-        "description": "Get all Tours paginated",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "examples": {
-              "application/json": "{\n    \"status\": \"success\",\n    \"results\": 1,\n    \"data\": {\n        \"data\": [\n            {\n                \"startLocation\": {\n                    \"type\": \"Point\",\n                    \"description\": \"California, USA\",\n                    \"coordinates\": [\n                        -118.803461,\n                        34.006072\n                    ],\n                    \"address\": \"29130 Cliffside Dr, Malibu, CA 90265, USA\"\n                },\n                \"ratingsAverage\": 3.9,\n                \"ratingsQuantity\": 7,\n                \"images\": [\n                    \"tour-6-1.jpg\",\n                    \"tour-6-2.jpg\",\n                    \"tour-6-3.jpg\"\n                ],\n                \"startDates\": [\n                    \"2021-07-19T09:00:00.000Z\",\n                    \"2021-09-06T09:00:00.000Z\",\n                    \"2022-03-18T10:00:00.000Z\"\n                ],\n                \"secretTour\": false,\n                \"guides\": [\n                    {\n                        \"photo\": \"user-11.jpg\",\n                        \"role\": \"lead-guide\",\n                        \"_id\": \"5c8a21f22f8fb814b56fa18a\",\n                        \"name\": \"Aarav Lynn\",\n                        \"email\": \"aarav@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-5.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a1f292f8fb814b56fa184\",\n                        \"name\": \"Leo Gillespie\",\n                        \"email\": \"leo@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-6.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a1f4e2f8fb814b56fa185\",\n                        \"name\": \"Jennifer Hardy\",\n                        \"email\": \"jennifer@example.com\"\n                    }\n                ],\n                \"_id\": \"5c88fa8cf4afda39709c2966\",\n                \"name\": \"The Sports Lover\",\n                \"duration\": 14,\n                \"maxGroupSize\": 8,\n                \"difficulty\": \"difficult\",\n                \"price\": 2997,\n                \"summary\": \"Surfing, skating, parajumping, rock climbing and more, all in one tour\",\n                \"description\": \"Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\\nVoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur!\",\n                \"imageCover\": \"tour-6-cover.jpg\",\n                \"locations\": [\n                    {\n                        \"type\": \"Point\",\n                        \"coordinates\": [\n                            -118.809361,\n                            34.003098\n                        ],\n                        \"_id\": \"5c88fa8cf4afda39709c296b\",\n                        \"description\": \"Point Dume Beach\",\n                        \"day\": 1\n                    },\n                    {\n                        \"type\": \"Point\",\n                        \"coordinates\": [\n                            -118.47549,\n                            33.987367\n                        ],\n                        \"_id\": \"5c88fa8cf4afda39709c296a\",\n                        \"description\": \"Venice Skate Park\",\n                        \"day\": 4\n                    },\n                    {\n                        \"type\": \"Point\",\n                        \"coordinates\": [\n                            -116.830104,\n                            33.022843\n                        ],\n                        \"_id\": \"5c88fa8cf4afda39709c2969\",\n                        \"description\": \"San Diego Skydive\",\n                        \"day\": 6\n                    },\n                    {\n                        \"type\": \"Point\",\n                        \"coordinates\": [\n                            -118.4547,\n                            35.710359\n                        ],\n                        \"_id\": \"5c88fa8cf4afda39709c2968\",\n                        \"description\": \"Kern River Rafting\",\n                        \"day\": 7\n                    },\n                    {\n                        \"type\": \"Point\",\n                        \"coordinates\": [\n                            -119.600492,\n                            37.742371\n                        ],\n                        \"_id\": \"5c88fa8cf4afda39709c2967\",\n                        \"description\": \"Yosemite National Park\",\n                        \"day\": 10\n                    }\n                ],\n                \"slug\": \"the-sports-lover\",\n                \"durationWeeks\": 2,\n                \"id\": \"5c88fa8cf4afda39709c2966\"\n            }\n        ]\n    }\n}"
-            }
-          },
-          "404": {
-            "description": "200 response",
-            "examples": {
-              "application/json":"{\n    \"status\": \"success\",\n    \"results\": 0,\n    \"data\": {\n        \"data\": []\n    }\n}"
-            }
-          }
-        }
-      }
-    },
     "/api/v1/tours/top-5-cheap": {
       "parameters": [
       ],
       "get": {
         "tags": [
-          "Open API"
+          "Open APIs"
         ],
         "operationId": "get the top 5 cheap Tours",
         "summary": "get the top 5 cheap Tours",
@@ -138,10 +45,15 @@
         "responses": {
           "200": {
             "description": "200 response",
-            "examples": {
-              "application/json": "{\n    \"status\": \"success\",\n    \"results\": 5,\n    \"data\": {\n        \"data\": [\n            {\n                \"ratingsAverage\": 5,\n                \"guides\": [\n                    {\n                        \"photo\": \"user-10.jpg\",\n                        \"role\": \"lead-guide\",\n                        \"_id\": \"5c8a21d02f8fb814b56fa189\",\n                        \"name\": \"Steve T. Scaife\",\n                        \"email\": \"steve@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-7.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a201e2f8fb814b56fa186\",\n                        \"name\": \"Kate Morrison\",\n                        \"email\": \"kate@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-5.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a1f292f8fb814b56fa184\",\n                        \"name\": \"Leo Gillespie\",\n                        \"email\": \"leo@example.com\"\n                    }\n                ],\n                \"_id\": \"5c88fa8cf4afda39709c2951\",\n                \"name\": \"The Forest Hiker\",\n                \"difficulty\": \"easy\",\n                \"price\": 397,\n                \"summary\": \"Breathtaking hike through the Canadian Banff National Park\",\n                \"durationWeeks\": null,\n                \"id\": \"5c88fa8cf4afda39709c2951\"\n            },\n            {\n                \"ratingsAverage\": 4.8,\n                \"guides\": [\n                    {\n                        \"photo\": \"user-12.jpg\",\n                        \"role\": \"lead-guide\",\n                        \"_id\": \"5c8a22c62f8fb814b56fa18b\",\n                        \"name\": \"Miyah Myles\",\n                        \"email\": \"miyah@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-6.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a1f4e2f8fb814b56fa185\",\n                        \"name\": \"Jennifer Hardy\",\n                        \"email\": \"jennifer@example.com\"\n                    }\n                ],\n                \"_id\": \"5c88fa8cf4afda39709c2955\",\n                \"name\": \"The Sea Explorer\",\n                \"difficulty\": \"medium\",\n                \"price\": 497,\n                \"summary\": \"Exploring the jaw-dropping US east coast by foot and by boat\",\n                \"durationWeeks\": null,\n                \"id\": \"5c88fa8cf4afda39709c2955\"\n            },\n            {\n                \"ratingsAverage\": 4.8,\n                \"guides\": [\n                    {\n                        \"photo\": \"user-10.jpg\",\n                        \"role\": \"lead-guide\",\n                        \"_id\": \"5c8a21d02f8fb814b56fa189\",\n                        \"name\": \"Steve T. Scaife\",\n                        \"email\": \"steve@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-5.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a1f292f8fb814b56fa184\",\n                        \"name\": \"Leo Gillespie\",\n                        \"email\": \"leo@example.com\"\n                    }\n                ],\n                \"_id\": \"5c88fa8cf4afda39709c2970\",\n                \"name\": \"The Star Gazer\",\n                \"difficulty\": \"medium\",\n                \"price\": 2997,\n                \"summary\": \"The most remote and stunningly beautiful places for seeing the night sky\",\n                \"durationWeeks\": null,\n                \"id\": \"5c88fa8cf4afda39709c2970\"\n            },\n            {\n                \"ratingsAverage\": 4.7,\n                \"guides\": [\n                    {\n                        \"photo\": \"user-11.jpg\",\n                        \"role\": \"lead-guide\",\n                        \"_id\": \"5c8a21f22f8fb814b56fa18a\",\n                        \"name\": \"Aarav Lynn\",\n                        \"email\": \"aarav@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-13.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a23412f8fb814b56fa18c\",\n                        \"name\": \"Ben Hadley\",\n                        \"email\": \"ben@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-7.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a201e2f8fb814b56fa186\",\n                        \"name\": \"Kate Morrison\",\n                        \"email\": \"kate@example.com\"\n                    }\n                ],\n                \"_id\": \"5c88fa8cf4afda39709c2961\",\n                \"name\": \"The Park Camper\",\n                \"difficulty\": \"medium\",\n                \"price\": 1497,\n                \"summary\": \"Breathing in Nature in America's most spectacular National Parks\",\n                \"durationWeeks\": null,\n                \"id\": \"5c88fa8cf4afda39709c2961\"\n            },\n            {\n                \"ratingsAverage\": 4.7,\n                \"guides\": [\n                    {\n                        \"photo\": \"user-11.jpg\",\n                        \"role\": \"lead-guide\",\n                        \"_id\": \"5c8a21f22f8fb814b56fa18a\",\n                        \"name\": \"Aarav Lynn\",\n                        \"email\": \"aarav@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-7.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a201e2f8fb814b56fa186\",\n                        \"name\": \"Kate Morrison\",\n                        \"email\": \"kate@example.com\"\n                    },\n                    {\n                        \"photo\": \"user-13.jpg\",\n                        \"role\": \"guide\",\n                        \"_id\": \"5c8a23412f8fb814b56fa18c\",\n                        \"name\": \"Ben Hadley\",\n                        \"email\": \"ben@example.com\"\n                    }\n                ],\n                \"_id\": \"5c88fa8cf4afda39709c2974\",\n                \"name\": \"The Northern Lights\",\n                \"difficulty\": \"easy\",\n                \"price\": 1497,\n                \"summary\": \"Enjoy the Northern Lights in one of the best places in the world\",\n                \"durationWeeks\": null,\n                \"id\": \"5c88fa8cf4afda39709c2974\"\n            }\n        ]\n    }\n}"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/ToursSuccess"
+                }
+              }
             }
-          }        }
+          }
+        }
       }
     },
     "/api/v1/tours/controllers-stats":  {
@@ -149,7 +61,7 @@
       ],
       "get": {
         "tags": [
-          "Open API"
+          "Open APIs"
         ],
         "operationId": "get The number of Tours by difficulty",
         "summary": "get The number of Tours by difficulty",
@@ -160,8 +72,12 @@
         "responses": {
           "200": {
             "description": "200 response",
-            "examples": {
-              "application/json": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"stats\": [\n            {\n                \"_id\": \"DIFFICULT\",\n                \"numTours\": 1,\n                \"numRatings\": 6,\n                \"avgRating\": 4.5,\n                \"avgPrice\": 997,\n                \"minPrice\": 997,\n                \"maxPrice\": 997\n            },\n            {\n                \"_id\": \"EASY\",\n                \"numTours\": 3,\n                \"numRatings\": 21,\n                \"avgRating\": 4.766666666666667,\n                \"avgPrice\": 1030.3333333333333,\n                \"minPrice\": 397,\n                \"maxPrice\": 1497\n            },\n            {\n                \"_id\": \"MEDIUM\",\n                \"numTours\": 3,\n                \"numRatings\": 19,\n                \"avgRating\": 4.766666666666667,\n                \"avgPrice\": 1663.6666666666667,\n                \"minPrice\": 497,\n                \"maxPrice\": 2997\n            }\n        ]\n    }\n}"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourControllerStats"
+                }
+              }
             }
           }
         }
@@ -193,7 +109,7 @@
       ],
       "get": {
         "tags": [
-          "Open API"
+          "Open APIs"
         ],
         "operationId": "get Tour by ObjectID",
         "summary": "get Tour by ObjectID",
@@ -217,8 +133,12 @@
 
           "500": {
             "description": "500Internal Server Error",
-            "examples": {
-              "application/json":"{\n    \"status\": \"error\",\n    \"message\": \"Something went very wrong!\"\n}"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/ServerError"
+                }
+              }
             }
           }
         }
@@ -243,7 +163,7 @@
       ],
       "get": {
         "tags": [
-          "Open API"
+          "Open APIs"
         ],
         "operationId": "get the distance from all tours by a map point by lat lng from all tours by unit",
         "summary": "get the distance from all tours by a map point by lat lng from all tours by unit",
@@ -270,13 +190,6 @@
     "/api/v1/tours/{id}": {
       "parameters": [
         {
-          "name": "authorization",
-          "required": true,
-          "in": "header",
-          "type": "string",
-          "description": "JWT Bearer token"
-        },
-        {
           "name": "id",
           "required": true,
           "in": "path",
@@ -286,7 +199,7 @@
       ],
       "delete": {
         "tags": [
-          "Auth"
+          "Secure APIs"
         ],
         "operationId": "delete Tour by ObjectID",
         "summary": "delete Tour by ObjectID",
@@ -297,17 +210,568 @@
         "responses": {
           "204": {
             "description": "204 response",
-            "examples": {
+            "content": {
+              "application/json":{}
+            }
+          },
+          "401": {
+            "description": "Error: Unauthorized",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/UnauthorizedLogin"
+                }
               }
+            }
           },
           "404": {
             "description": "404 Not Found",
-            "examples": {
-              "application/json":"{\n                \"status\": \"fail\",\n                \"message\": \"No document found with that ID\"\n              }"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourDocumentNotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Open APIs"
+        ],
+        "operationId": "get Tour by ObjectID",
+        "summary": "get Tour by ObjectID",
+        "description": "get Tour by ObjectID",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourSuccess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourDocumentNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tours/": {
+      "post": {
+        "tags": [
+          "Secure APIs"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name":{
+                  "type": "string",
+                  "description": "The name of the tour",
+                  "example": "New Test Tour"
+                },
+                "duration":{
+                  "type": "number",
+                  "description": "the duration of the tour",
+                  "example": 1
+                },
+                "maxGroupSize":{
+                  "type": "number",
+                  "description": "The maximum group size between 1 and five inclusive",
+                  "example": 3
+                },
+                "imageCover":{
+                  "type": "number",
+                  "description": "The maximum group size between 1 and five inclusive",
+                  "example": 3
+                },
+                "startLocation":{
+                  "type": "object",
+                  "description": "the start location of the Tour",
+                  "example": {
+                    "description": "Miami, USA",
+                    "type": "Point",
+                    "coordinates": [-80.185942, 25.774772],
+                    "address": "301 Biscayne Blvd, Miami, FL 33132, USA"
+                  }
+                }
+              }
+            },
+            "description": "The required Body Json Object to create a new Tour"
+          }
+        ],
+        "operationId": "Create One Tour",
+        "summary": "Create One Tour",
+        "description": "Create One Tour",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "201 Created",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error: Unauthorized",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/UnauthorizedLogin"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "natours_auth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Open APIs"
+        ],
+        "parameters": [
+          {
+            "name": "{filteringForNumericValues}",
+            "required": false,
+            "in": "query",
+            "type": "numeric",
+            "description": "Tour filteringForNumericValues[gte] | filteringForNumericValues[lte] | filteringForNumericValues[lt] | filteringForNumericValues[gt] if a string is set it will ignore it "
+          },
+
+          {
+            "name": "filteringForData",
+            "required": false,
+            "in": "query",
+            "type": "string | boolean",
+            "description": "Tour filteringForData"
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "sorting can be done by price | "
+          },
+
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "start from page"
+          },
+
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "limit number of data returned"
+          },
+
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "the  fields to be returned from the API "
+          }
+        ],
+        "operationId": "Get all Tours paginated",
+        "summary": "Get all Tours paginated",
+        "description": "Get all Tours paginated",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/ToursSuccess"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/users/login/": {
+      "post": {
+        "tags": [
+          "Authorization"
+        ],
+
+        "requestBody": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "anthony123@mailsac.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "pass1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "Login with existing user",
+        "summary": "Login with existing user",
+        "description": "Login with existing user",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/AuthorizationSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error: Unauthorized",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/LoginError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/signup/": {
+      "post": {
+        "tags": [
+          "Authorization"
+        ],
+        "requestBody": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name":{
+                    "type": "string",
+                    "description": "The name of the user ",
+                    "example": "New Test Tour"
+                  },
+                  "email":{
+                    "type": "string",
+                    "description": "The email of the user",
+                    "example": "New Test Tour"
+                  },
+                  "password":{
+                    "type": "string",
+                    "description": "The name of the tour",
+                    "example": "New Test Tour"
+                  },
+                  "passwordConfirm":{
+                    "type": "string",
+                    "description": "The password to confirm the actual password",
+                    "example": "New Test Tour"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "Create One Tour",
+        "summary": "Create One Tour",
+        "description": "Create One Tour",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "201 Created",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/AuthorizationSuccess"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: Unauthorized",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/ServerError"
+                }
+              }
             }
           }
         }
       }
     }
+
+
+    },
+
+    "components": {
+      "schemas": {
+        "TourSuccess": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "success"
+            },
+            "data": {
+              "type": "object",
+              "example": {
+                "data": {
+                  "startLocation": {
+                    "type": "Point",
+                    "description": "Miami, USA",
+                    "coordinates": [-80.185942, 25.774772],
+                    "address": "301 Biscayne Blvd, Miami, FL 33132, USA"
+                  },
+                  "ratingsAverage": 4.5,
+                  "ratingsQuantity": 0,
+                  "images": [],
+                  "createdAt": "2022-01-27T13:54:16.554Z",
+                  "startDates": [],
+                  "secretTour": false,
+                  "guides": [],
+                  "_id": "61f2a40bac1fa6259869d94f",
+                  "name": "New Test Tour",
+                  "duration": 1,
+                  "maxGroupSize": 1,
+                  "difficulty": "easy",
+                  "price": 200,
+                  "summary": "Test tour",
+                  "imageCover": "tour-3-cover.jpg",
+                  "locations": [],
+                  "slug": "new-test-tour",
+                  "__v": 0,
+                  "durationWeeks": 0.14285714285714285,
+                  "id": "61f2a40bac1fa6259869d94f"
+                }
+              }
+            }
+          }
+        },
+        "ToursSuccess": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "success"
+            },
+            "results": {
+              "type": "number",
+              "example": 1
+            },
+            "data": {
+              "type": "object",
+              "example": {
+                  "startLocation": {
+                    "type": "Point",
+                    "description": "Miami, USA",
+                    "coordinates": [-80.185942, 25.774772],
+                    "address": "301 Biscayne Blvd, Miami, FL 33132, USA"
+                  },
+                  "ratingsAverage": 4.5,
+                  "ratingsQuantity": 0,
+                  "images": [],
+                  "createdAt": "2022-01-27T13:54:16.554Z",
+                  "startDates": [],
+                  "secretTour": false,
+                  "guides": [],
+                  "_id": "61f2a40bac1fa6259869d94f",
+                  "name": "New Test Tour",
+                  "duration": 1,
+                  "maxGroupSize": 1,
+                  "difficulty": "easy",
+                  "price": 200,
+                  "summary": "Test tour",
+                  "imageCover": "tour-3-cover.jpg",
+                  "locations": [],
+                  "slug": "new-test-tour",
+                  "__v": 0,
+                  "durationWeeks": 0.14285714285714285,
+                  "id": "61f2a40bac1fa6259869d94f"
+                }
+
+            }
+          }
+        },
+        "AuthorizationSuccess": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "success"
+            },
+            "token": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjExZGQyYjM1YmIwMDUyMDM1OTdmYyIsImlhdCI6MTY0MzM2OTA4NCwiZXhwIjoxNjQ0MTQ2Njg0fQ.u7TNSSdryOW1ppLiZi0QZGLuc9pUwCneOUHaHC0oOG8"
+            },
+            "data": {
+              "type": "object",
+              "example": {
+                "user": {
+                  "photo": "default.jpg",
+                  "role": "admin",
+                  "_id": "61f11dd2b35bb005203597fc",
+                  "name": "Jonas",
+                  "email": "anthony123@mailsac.com",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        },
+        "TourControllerStats": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "success"
+            },
+
+            "data": {
+              "type": "object",
+              "example": {
+                  "stats": [
+                  {
+                    "_id": "DIFFICULT",
+                    "numTours": 1,
+                    "numRatings": 6,
+                    "avgRating": 4.5,
+                    "avgPrice": 997,
+                    "minPrice": 997,
+                    "maxPrice": 997
+                  },
+                  {
+                    "_id": "EASY",
+                    "numTours": 3,
+                    "numRatings": 21,
+                    "avgRating": 4.766666666666667,
+                    "avgPrice": 1030.3333333333333,
+                    "minPrice": 397,
+                    "maxPrice": 1497
+                  },
+                  {
+                    "_id": "MEDIUM",
+                    "numTours": 3,
+                    "numRatings": 19,
+                    "avgRating": 4.766666666666667,
+                    "avgPrice": 1663.6666666666667,
+                    "minPrice": 497,
+                    "maxPrice": 2997
+                  }
+                ]
+
+            }
+            }
+          }
+
+        },
+        "TourDocumentNotFound": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "fail"
+            },
+            "message": {
+              "type": "string",
+              "example": "No document found with that ID."
+            }
+          }
+        },
+        "UnauthorizedLogin": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "fail"
+            },
+            "message": {
+              "type": "string",
+              "example": "You are not logged in! Please log in to get access."
+            }
+          }
+        },
+        "LoginError": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "fail"
+            },
+            "message": {
+              "type": "string",
+              "example": "Incorrect email or password."
+            }
+          }
+        },
+        "ServerError": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "error"
+            },
+            "message": {
+              "type": "string",
+              "example": "Something went very wrong!"
+            }
+          }
+        }
+      },
+    "securitySchemes": {
+      "natours_auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+    }
   }
-}
