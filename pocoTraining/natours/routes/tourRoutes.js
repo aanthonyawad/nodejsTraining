@@ -52,6 +52,11 @@ router
     tourController.resizeTourImages,
     tourController.updateTour
   )
+  .put(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.updateTour
+  )
   .delete(
     authController.protect,
     authController.restrictTo('admin', 'lead-guide'),

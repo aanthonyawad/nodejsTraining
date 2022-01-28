@@ -413,6 +413,94 @@
           }
         ]
       },
+      "patch": {
+        "tags": [
+          "Secure APIs"
+        ],
+        "operationId": "patch Tour by ObjectID",
+        "summary": "patch Tour by ObjectID",
+        "description": "patch Tour by ObjectID",
+        "produces": [
+          "application/json"
+        ],
+
+        "multipart/form-data": {
+          "schema": {
+            "properties": {
+              "additionalMetadata": {
+                "type": "string",
+                "description": "Additional data to pass to server"
+              },
+              "file": {
+                "type": "string",
+                "description": "file to upload",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "price": {
+                    "type": "number",
+                    "description": 1
+                  },
+                  "imageCover": {
+                    "type": "string",
+                    "description": "single file upload",
+                    "format": "binary"
+                  },
+                  "images": {
+                    "type": "string",
+                    "description": "multiple file upload",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "204 response",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourSuccess"
+                }}
+            }
+          },
+          "401": {
+            "description": "Error: Unauthorized",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/UnauthorizedLogin"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourDocumentNotFound"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "natours_auth": []
+          }
+        ]
+      },
       "get": {
         "tags": [
           "Open APIs"
