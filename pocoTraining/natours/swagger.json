@@ -29,6 +29,178 @@
     }
   ],
   "paths": {
+
+    "/api/v1/tours/": {
+      "post": {
+        "tags": [
+          "Secure APIs"
+        ],
+
+        "requestBody": {
+          "description": "Tour object that is needed to create a Tour",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name":{
+                    "type": "string",
+                    "description": "The name of the tour",
+                    "example": "New Test Tour"
+                  },
+                  "duration":{
+                    "type": "number",
+                    "description": "the duration of the tour",
+                    "example": 1
+                  },
+                  "maxGroupSize":{
+                    "type": "number",
+                    "description": "The maximum group size between 1 and five inclusive",
+                    "example": 3
+                  },
+
+                  "difficulty":{
+
+                    "type": "string",
+                    "description": " the tour difficulty: easy | medium | difficult",
+                    "example": "easy"
+                  },
+                  "price": {
+                    "type": "number",
+                    "description": "The maximum group size between 1 and five inclusive",
+                    "example": 2000
+                  },
+                  "summary":{
+                    "type": "string",
+                    "description": "the description of the tour",
+                    "example": "tour description test"
+                  },
+                  "imageCover":{
+                    "type": "number",
+                    "description": "The maximum group size between 1 and five inclusive",
+                    "example": 3
+                  },
+                  "startLocation":{
+                    "type": "object",
+                    "description": "the start location of the Tour",
+                    "example": {
+                      "description": "Miami, USA",
+                      "type": "Point",
+                      "coordinates": [-80.185942, 25.774772],
+                      "address": "301 Biscayne Blvd, Miami, FL 33132, USA"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "Create One Tour",
+        "summary": "Create One Tour",
+        "description": "Create One Tour",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "201 Created",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/TourSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error: Unauthorized",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/UnauthorizedLogin"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "natours_auth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Open APIs"
+        ],
+        "parameters": [
+          {
+            "name": "{filteringForNumericValues}",
+            "required": false,
+            "in": "query",
+            "type": "numeric",
+            "description": "Tour filteringForNumericValues[gte] | filteringForNumericValues[lte] | filteringForNumericValues[lt] | filteringForNumericValues[gt] if a string is set it will ignore it "
+          },
+
+          {
+            "name": "filteringForData",
+            "required": false,
+            "in": "query",
+            "type": "string | boolean",
+            "description": "Tour filteringForData"
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "sorting can be done by price | "
+          },
+
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "start from page"
+          },
+
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "limit number of data returned"
+          },
+
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "the  fields to be returned from the API "
+          }
+        ],
+        "operationId": "Get all Tours paginated",
+        "summary": "Get all Tours paginated",
+        "description": "Get all Tours paginated",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/ToursSuccess"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/tours/top-5-cheap": {
       "parameters": [
       ],
@@ -234,7 +406,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "natours_auth": []
+          }
+        ]
       },
       "get": {
         "tags": [
@@ -270,160 +447,7 @@
         }
       }
     },
-    "/api/v1/tours/": {
-      "post": {
-        "tags": [
-          "Secure APIs"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "required": true,
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name":{
-                  "type": "string",
-                  "description": "The name of the tour",
-                  "example": "New Test Tour"
-                },
-                "duration":{
-                  "type": "number",
-                  "description": "the duration of the tour",
-                  "example": 1
-                },
-                "maxGroupSize":{
-                  "type": "number",
-                  "description": "The maximum group size between 1 and five inclusive",
-                  "example": 3
-                },
-                "imageCover":{
-                  "type": "number",
-                  "description": "The maximum group size between 1 and five inclusive",
-                  "example": 3
-                },
-                "startLocation":{
-                  "type": "object",
-                  "description": "the start location of the Tour",
-                  "example": {
-                    "description": "Miami, USA",
-                    "type": "Point",
-                    "coordinates": [-80.185942, 25.774772],
-                    "address": "301 Biscayne Blvd, Miami, FL 33132, USA"
-                  }
-                }
-              }
-            },
-            "description": "The required Body Json Object to create a new Tour"
-          }
-        ],
-        "operationId": "Create One Tour",
-        "summary": "Create One Tour",
-        "description": "Create One Tour",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "201": {
-            "description": "201 Created",
-            "content": {
-              "application/json":{
-                "schema": {
-                  "$ref":"#/components/schemas/TourSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Error: Unauthorized",
-            "content": {
-              "application/json":{
-                "schema": {
-                  "$ref":"#/components/schemas/UnauthorizedLogin"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "natours_auth": []
-          }
-        ]
-      },
-      "get": {
-        "tags": [
-          "Open APIs"
-        ],
-        "parameters": [
-          {
-            "name": "{filteringForNumericValues}",
-            "required": false,
-            "in": "query",
-            "type": "numeric",
-            "description": "Tour filteringForNumericValues[gte] | filteringForNumericValues[lte] | filteringForNumericValues[lt] | filteringForNumericValues[gt] if a string is set it will ignore it "
-          },
 
-          {
-            "name": "filteringForData",
-            "required": false,
-            "in": "query",
-            "type": "string | boolean",
-            "description": "Tour filteringForData"
-          },
-          {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "type": "string",
-            "description": "sorting can be done by price | "
-          },
-
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "type": "string",
-            "description": "start from page"
-          },
-
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "type": "string",
-            "description": "limit number of data returned"
-          },
-
-          {
-            "name": "fields",
-            "required": false,
-            "in": "query",
-            "type": "string",
-            "description": "the  fields to be returned from the API "
-          }
-        ],
-        "operationId": "Get all Tours paginated",
-        "summary": "Get all Tours paginated",
-        "description": "Get all Tours paginated",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "content": {
-              "application/json":{
-                "schema": {
-                  "$ref":"#/components/schemas/ToursSuccess"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
 
     "/api/v1/users/login/": {
       "post": {
@@ -432,7 +456,7 @@
         ],
 
         "requestBody": {
-          "description": "Pet object that needs to be added to the store",
+          "description": "User object we need to login with",
           "content": {
             "application/json": {
               "schema": {
